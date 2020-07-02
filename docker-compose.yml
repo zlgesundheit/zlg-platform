@@ -33,3 +33,6 @@ services:
 
 networks:
   ehrbase-net: {}
+
+volumes:
+  pgdata:
