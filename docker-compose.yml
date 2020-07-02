@@ -1,0 +1,24 @@
+version: '3.0'
+services:
+  server:
+    image: ehrbaseorg/ehrbase
+    network: ehrbase-net
+    ports:
+    - "8080:8080"
+    environment:
+    - DB_URL=jdbc:postgresql://ehrdb:5432/ehrbase
+    - DB_USER=ehrbase
+    - DB_PASS=ehrbase
+    - AUTH_TYPE=BASIC
+    - AUTH_USER=admin
+    - AUTH_PASSWORD=admin
+    - SYSTEM_NAME=local.ehrbase.org
+    links:
+    - db
+  db:
+    image: ehrbaseorg/ehrbase-postgres:latest
+    network: ehrbase-net
+    ports:
+    - "5432:5432"
+    environment:
+    - POSTGRES_PASSWORD=postgres
