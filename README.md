@@ -16,7 +16,7 @@ Observation_Heart Rate, Evaluation_Diagnosis und   Observation_Blood Pressure
 
 Template mit Composition Encounter und einer Section mit den drei Archetypen komplett hinzugefügt.
 
-Export des Templates mit der EXPORT FUNKTION -> FULL OET
+Export des Templates mit der EXPORT FUNKTION -> FULL OPT not OET
 
 Video wie man den Template Editor nutzt: 
 
@@ -26,9 +26,16 @@ https://www.youtube.com/watch?v=B-W5c3qwpFE
 
 ### Step 3 - Upload Template to Server (Postman)
 
-View ORBDAset.oet as XML in Template Editor
+Send it to 
 
-Copy-Paste
+- {{ehrUrl}}/definition/template/adl1.4
+- Content-Type application/xml
+- Prefer  return=representation
+- Body
+
+```xml
+FULL OPT XML
+```
 
 
 
@@ -67,7 +74,9 @@ Use some tool for that
 
 - Fill the composition according to its structure
 
-### Step 6 - Send it
+### Step 6 - Send it or print it and send it wo openEHR-SDK
+
+- Einbindung des TemplateProviders in RestClient nötig
 
 ```java
 public static void main(String[] args){
