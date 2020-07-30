@@ -2,19 +2,23 @@
 
 ### Step 1 - Archetyp erstellen (Archetype Editor + CKM)
 
-Name: bloodpressure_m3.v0
-
-Typ: openEHR-EHR-OBSERVATION
-
 Hinzufügen von Attributen / Modellieren des klinischen Konzepts
 
-Dazu noch Observation_Heart Rate, Evaluation_Diagnosis und Composition_encounter
+Composition_encounter
+
+Section vital signs
+
+Observation_Heart Rate, Evaluation_Diagnosis und   Observation_Blood Pressure
 
 
 
 ### Step 2 - Template erstellen (Template Editor)
 
-Template mit Composition encounter und den drei archetypen komplett hinzugefügt
+Template mit Composition Encounter und einer Section mit den drei Archetypen komplett hinzugefügt.
+
+Export des Templates mit der EXPORT FUNKTION -> FULL OET
+
+Video wie man den Template Editor nutzt: 
 
 https://www.youtube.com/watch?v=B-W5c3qwpFE
 
@@ -28,17 +32,59 @@ Copy-Paste
 
 
 
-### Step 4 - Generate an example json/xml Composition
+### Step 4 - Generate java classes / entitys for the building of compositions
 
 Use some tool for that
 
 - https://toolkit.cabolabs.com/app/features   Instance Generator
 
+  - Registration does not function....
+
 - EhrBase Client Functions
 
+  - Build it (java version = 11; mvn -version; java 1.8 needed anyway)
 
+  - Generate Entitiy Classes
 
-### Step 5 - Create EHR at the server and get EHRid via SUBJECTid
+    - Befehl
+
+      java -jar generator-0.3.1-SNAPSHOT.jar -opt /mnt/c/Users/richter122/git-projects/zlg-ehrbase/Templates/ORBDAset.opt -out /mnt/c/Users/richter122/git-projects/zlg-ehrbase/Templates/ -package test
+
+  - Have a package with definition-classes ("archetypes") and Composition-Class (composition) to use in your java project.
+
+### Step 5 - Build a composition using java
+
+- Load the java-composition classes package into your project.
+
+- Start implementing something that is generating an instance of that composition
+
+  - ```java
+    public static ORBDAsetComposition buildExample() {
+        ORBDAsetComposition dto = new ORBDAsetComposition();
+    	//.-.-.-.-.-.-
+    }
+    ```
+
+- Fill the composition according to its structure
+
+### Step 6 - Send it
+
+```java
+public static void main(String[] args){
+    // Setup EhrClient before
+    UUID ehr = openEhrClient.ehrEndpoint().createEhr();
+
+    ORBDAsetComposition myComposition = buildExample();
+    System.out.println(myComposition);
+
+    CompositionEndpoint compositionEndpoint = openEhrClient.compositionEndpoint(ehr);
+    openEhrClient.compositionEndpoint(ehr).mergeCompositionEntity(myComposition);
+}
+```
+
+### Step 7x - Create EHR at the server and get EHRid via 
+
+### SUBJECTid
 
 - create an ehr and get the ehr-id
 
@@ -95,7 +141,7 @@ Use some tool for that
 
 
 
-### Step 6 - Send and "create" Composition at the server usind EHRid
+### Step 6 - Send and "create" Composition at the server using EHRid
 
 Endpoint: {{ehrUrl}}/ehr/:ehrId/composition?Prefer=return=representation
 
