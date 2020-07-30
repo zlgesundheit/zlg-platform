@@ -1,24 +1,24 @@
 # zlg-ehrbase
 
-### Step 1 - Archetyp erstellen (Archetype Editor + CKM)
+### Step 1 - Archetyp erstellen (Ocean Archetype Editor + CKM)
 
-Hinzufügen von Attributen / Modellieren des klinischen Konzepts
+Hinzufügen von Attributen / Modellieren des klinischen Konzepts:
 
-Composition_encounter
+- Composition_Encounter
 
-Section vital signs
+- Section Vital_Signs
 
-Observation_Heart Rate, Evaluation_Diagnosis und   Observation_Blood Pressure
+- Observation_Heart Rate, Evaluation_Diagnosis und Observation_Blood Pressure
 
 
 
-### Step 2 - Template erstellen (Template Editor)
+### Step 2 - Template erstellen (Ocean Template Editor)
 
-Template mit Composition Encounter und einer Section mit den drei Archetypen komplett hinzugefügt.
+1. Template aus den vorhandenen Archetypen erstellt.
 
-Export des Templates mit der EXPORT FUNKTION -> FULL OPT not OET
+2. Export des Templates mit der EXPORT FUNKTION -> FULL OPT not OET
 
-Video wie man den Template Editor nutzt: 
+Video wie man den Ocean Template-Editor nutzt: 
 
 https://www.youtube.com/watch?v=B-W5c3qwpFE
 
@@ -26,7 +26,7 @@ https://www.youtube.com/watch?v=B-W5c3qwpFE
 
 ### Step 3 - Upload Template to Server (Postman)
 
-Send it to 
+Send it
 
 - {{ehrUrl}}/definition/template/adl1.4
 - Content-Type application/xml
@@ -39,7 +39,7 @@ FULL OPT XML
 
 
 
-### Step 4 - Generate java classes / entitys for the building of compositions
+### (Optional) Step 4 - Generate java classes / entitys for the building of compositions
 
 Use some tool for that
 
@@ -59,7 +59,7 @@ Use some tool for that
 
   - Have a package with definition-classes ("archetypes") and Composition-Class (composition) to use in your java project.
 
-### Step 5 - Build a composition using java
+### Step 5 - Build a composition (using java)
 
 - Load the java-composition classes package into your project.
 
@@ -74,7 +74,7 @@ Use some tool for that
 
 - Fill the composition according to its structure
 
-### Step 6 - Send it or print it and send it wo openEHR-SDK
+### Step 6 - Send it or print it and send it (openEHR-SDK)
 
 - Einbindung des TemplateProviders in RestClient nötig
 
@@ -97,7 +97,7 @@ public static void main(String[] args){
 
 - create an ehr and get the ehr-id
 
-  - http://141.5.100.99:8080/ehrbase = {{host}} +
+  - http://141.5.100.99/ehrbase = {{host}} +
   - /rest/openehr/v1                                                +
   - /ehr                                              ist der rest endpoint
 
