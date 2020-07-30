@@ -16,6 +16,8 @@ Dazu noch Observation_Heart Rate, Evaluation_Diagnosis und Composition_encounter
 
 Template mit Composition encounter und den drei archetypen komplett hinzugefügt
 
+https://www.youtube.com/watch?v=B-W5c3qwpFE
+
 
 
 ### Step 3 - Upload Template to Server (Postman)
