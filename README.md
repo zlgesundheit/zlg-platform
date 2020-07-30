@@ -94,43 +94,47 @@ public static void main(String[] args){
 
 - Content:
 
+  ```json
   {
-
+  
    "_type": "EHR_STATUS",
-
+  
    "name": {
-
+  
     "value": "EHR"
-
+  
    },
-
+  
    "subject": {
-
+  
     "external_ref": {
-
+  
      "id": {
-
+  
   ​    "_type": "GENERIC_ID",
-
+  
   ​    "value": "{{subject_id}}",
-
+  
   ​    "scheme": "id_scheme"
-
+  
      },
-
+  
      "namespace": "{{subject_namespace}}",
-
+  
      "type": "PERSON"
-
+  
     }
-
+  
    },
-
+  
    "is_modifiable": true,
-
+  
    "is_queryable": true
-
+  
   }
+  ```
+
+  
 
 - Headers:
 
