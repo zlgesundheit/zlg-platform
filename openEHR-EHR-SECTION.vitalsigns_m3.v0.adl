@@ -1,0 +1,40 @@
+archetype (adl_version=1.4)
+	openEHR-EHR-SECTION.vitalsigns_m3.v0
+
+concept
+	[at0000]	-- Vitalsigns m3
+language
+	original_language = <[ISO_639-1::de]>
+description
+	original_author = <
+		["name"] = <"">
+	>
+	details = <
+		["de"] = <
+			language = <[ISO_639-1::de]>
+			purpose = <"">
+			use = <"">
+			misuse = <"">
+			copyright = <"">
+		>
+	>
+	lifecycle_state = <"0">
+	other_contributors = <>
+	other_details = <
+		["MD5-CAM-1.0.1"] = <"AE811B43473BF93B1E981D0737B663BE">
+	>
+
+definition
+	SECTION[at0000] matches {*}
+
+ontology
+	term_definitions = <
+		["de"] = <
+			items = <
+				["at0000"] = <
+					text = <"Vitalsigns m3">
+					description = <"unknown">
+				>
+			>
+		>
+	>
