@@ -1,4 +1,4 @@
-package test.m3.test.shareddefinition;
+package test.shareddefinition;
 
 import java.lang.String;
 import org.ehrbase.client.classgenerator.EnumValueSet;

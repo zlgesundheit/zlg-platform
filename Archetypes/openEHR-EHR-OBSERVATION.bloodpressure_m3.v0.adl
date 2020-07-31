@@ -25,7 +25,7 @@ https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0190028">
 	lifecycle_state = <"Initial">
 	other_contributors = <>
 	other_details = <
-		["MD5-CAM-1.0.1"] = <"1A0BB7F3DFA7B98D0D6907EE8A741CF7">
+		["MD5-CAM-1.0.1"] = <"769A5DB81604BF31EA3EE7122DAFCBA4">
 	>
 
 definition
@@ -36,7 +36,7 @@ definition
 					EVENT[at0002] occurrences matches {0..1} matches {	-- Jedes Ereignis
 						data matches {
 							ITEM_TREE[at0003] matches {	-- Baum
-								items cardinality matches {4..*; unordered} matches {
+								items cardinality matches {1..*; unordered} matches {
 									CLUSTER[at0012] occurrences matches {0..1} matches {	-- Blood Pressure
 										items cardinality matches {2..*; unordered} matches {
 											ELEMENT[at0009] matches {	-- Systolic Blood Pressure

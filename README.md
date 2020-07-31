@@ -55,9 +55,25 @@ Use some tool for that
 
     - Befehl
 
-      java -jar generator-0.3.1-SNAPSHOT.jar -opt /mnt/c/Users/richter122/git-projects/zlg-ehrbase/Templates/ORBDAset.opt -out /mnt/c/Users/richter122/git-projects/zlg-ehrbase/Templates/ -package test
-
+      ```
+    java -jar generator-0.3.1-SNAPSHOT.jar -opt /mnt/c/Users/richter122/git-projects/zlg-ehrbase/Templates/ORBDAsetV2.opt -out /mnt/c/Users/richter122/git-projects/zlg-ehrbase/Templates/ -package test
+      ```
+  
   - Have a package with definition-classes ("archetypes") and Composition-Class (composition) to use in your java project.
+
+### Step 4.5 - Setup the RestClient
+
+Hier einfach DefaultRestClientTestHelper gekapert:
+
+- Angabe -> Template-Folder
+- Angabe -> Ehrbaseadress
+
+```java
+Path templateFolder = Paths.get("C:\\Users\\richter122\\git-projects\\zlg-ehrbase\\Templates\\");
+FileBasedTemplateProvider cut = new FileBasedTemplateProvider(templateFolder);
+String baseadress = new Ehrbaseadress().getTESTENVGOE();
+DefaultRestClient client = new DefaultRestClient(new OpenEhrClientConfig(new URI(baseadress + "/ehrbase/rest/openehr/v1/")), cut);
+```
 
 ### Step 5 - Build a composition (using java)
 
@@ -66,17 +82,15 @@ Use some tool for that
 - Start implementing something that is generating an instance of that composition
 
   - ```java
-    public static ORBDAsetComposition buildExample() {
-        ORBDAsetComposition dto = new ORBDAsetComposition();
+    public static ORBDAsetV2Composition buildExample() {
+        ORBDAsetV2Composition dto = new ORBDAsetV2Composition();
     	//.-.-.-.-.-.-
     }
     ```
 
 - Fill the composition according to its structure
 
-### Step 6 - Send it or print it and send it (openEHR-SDK)
-
-- Einbindung des TemplateProviders in RestClient nötig
+### Step 6 - Send it (openEHR-SDK)
 
 ```java
 public static void main(String[] args){
@@ -91,7 +105,7 @@ public static void main(String[] args){
 }
 ```
 
-### Step 7x - Create EHR at the server and get EHRid via 
+### Step 6b - Create EHR at the server and get EHRid via 
 
 ### SUBJECTid
 
@@ -105,46 +119,28 @@ public static void main(String[] args){
 
   ```json
   {
-  
    "_type": "EHR_STATUS",
-  
    "name": {
-  
     "value": "EHR"
-  
    },
-  
    "subject": {
-  
     "external_ref": {
-  
      "id": {
-  
-  ​    "_type": "GENERIC_ID",
-  
-  ​    "value": "{{subject_id}}",
-  
-  ​    "scheme": "id_scheme"
-  
+      "_type": "GENERIC_ID",
+      "value": "{{subject_id}}",
+      "scheme": "id_scheme"
      },
-  
      "namespace": "{{subject_namespace}}",
-  
      "type": "PERSON"
-  
     }
-  
    },
-  
    "is_modifiable": true,
-  
    "is_queryable": true
-  
   }
   ```
-
   
-
+  
+  
 - Headers:
 
   - Content-Type   application/json
@@ -152,15 +148,35 @@ public static void main(String[] args){
   - Accept-Encoding      gzip, deflate, br
   - Prefer     return=representation
 
+### Step 7 - AQL Query: Get the content that is stored on the server to check AND SEE if it has been created
+
+AQL Query POST
+
+- {{ehrUrl}}/query/aql
+
+```
+{
+    "q": "select distinct a/uid as compId from EHR e contains COMPOSITION a WHERE e/ehr_id/value='c98cd25a-a66c-4485-a641-cb4790e4c2a9'",
+    "offset": 0,
+    "fetch": 10,
+    "query-parameters": {
+    
+    }
+}
+```
 
 
-### Step 6 - Send and "create" Composition at the server using EHRid
 
-Endpoint: {{ehrUrl}}/ehr/:ehrId/composition?Prefer=return=representation
+Oder Abfrage einzelner Abschnitte der Composition
 
-Params: 
+``` AQL
+{
+    "q": "select a/content[openEHR-EHR-SECTION.vitalsigns_m3.v0] as data from EHR e contains COMPOSITION a[openEHR-EHR-COMPOSITION.encounter.v1] WHERE a/uid/value='bc5b13c1-1c9c-4fbe-b82a-ad7e9bf6038e::local.ehrbase.org::1'",
+    "offset": 0,
+    "fetch": 10,
+    "query-parameters": {
+      
+    }
+}
+```
 
-- Prefer              return=representation
-- ehrId                {{ehrId}}
-
-See if it works or you get a bad request like i am atm
