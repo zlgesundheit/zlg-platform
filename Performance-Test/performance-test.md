@@ -4,6 +4,10 @@
 2. Load Balance with multiple servers in front of the same DB 
 3. Measure time with an other openEHR-Server-Solution in the back
 
+### Environment
+
+Maybe this should be run on a server to measure better performance times
+
 ### How
 
 - Use test.m3 - package to generate EHRs and Compositions (JAVA)
