@@ -2,7 +2,7 @@ version: '3'
 
 services:
   ehrbase:
-    image: ehrbaseorg/ehrbase:next #use ehrbase/ in the future
+    image: ehrbase/ehrbase:next
     ports:
       - 80:8080
     networks:
@@ -18,7 +18,7 @@ services:
     restart: always
 
   ehrdb:
-    image: ehrbaseorg/ehrbase-postgres:latest
+    image: ehrbaseorg/ehrbase-postgres:latest    #use ehrbase/ in the future. DB setup not working in new image atm
     ports: #may not need to be exposed in prod since docker bridges do the trick
       - 5432:5432
     networks:
@@ -33,6 +33,3 @@ services:
 
 networks:
   ehrbase-net: {}
-
-#volumes:
-  #pgdata:
