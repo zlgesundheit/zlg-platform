@@ -2,15 +2,15 @@ version: '3'
 
 services:
   ehrbase:
-    image: ehrbase/ehrbase:next
+    image: ehrbaseorg/ehrbase:next #use ehrbase/ in the future
     ports:
       - 80:8080
     networks:
       - ehrbase-net
     environment:
       DB_URL: jdbc:postgresql://ehrdb:5432/ehrbase
-      DB_USER: postgres
-      DB_PASS: postgres
+      DB_USER: ehrbase
+      DB_PASS: ehrbase
       SECURITY_AUTHTYPE: BASIC
       AUTH_USER: ehrbase-user
       AUTH_PASSWORD: SuperSecretPassword
@@ -18,8 +18,8 @@ services:
     restart: always
 
   ehrdb:
-    image: ehrbase/ehrbase-postgres:latest
-    ports:
+    image: ehrbaseorg/ehrbase-postgres:latest
+    ports: #may not need to be exposed in prod since docker bridges do the trick
       - 5432:5432
     networks:
       - ehrbase-net
@@ -33,3 +33,6 @@ services:
 
 networks:
   ehrbase-net: {}
+
+#volumes:
+  #pgdata:
