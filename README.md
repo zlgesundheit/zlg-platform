@@ -7,7 +7,7 @@ EHRbase is an openEHR Clinical Data Repository, providing a standard-based backe
 See the [EHRBase Documentation](https://ehrbase.readthedocs.io/en/latest/).
 
 The servers base adress is `<IP>/ehrbase`.  
-The EHRBase [REST API](/ehrbase/swagger-ui.html#/) is available after server start.  
+The EHRBase [REST API](/ehrbase/swagger-ui.html#/) Documentation (Swagger UI) is available after server start.  
 The OpenEHR-Specification also offers an overview of the [OpenEHR REST API](https://specifications.openehr.org/releases/ITS-REST/Release-1.0.0/ehr.html).
 
 A running EHRBase should be available at http://141.5.100.115/ehrbase ([REST API](http://141.5.100.115/ehrbase/swagger-ui.html))
