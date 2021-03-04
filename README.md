@@ -11,10 +11,21 @@ The EHRBase [REST API](/ehrbase/swagger-ui.html#/) is available after server sta
 The OpenEHR-Specification also offers an overview of the [OpenEHR REST API](https://specifications.openehr.org/releases/ITS-REST/Release-1.0.0/ehr.html).
 
 ## Preparation Steps
+
+### Add Templates on Startup
 Templates need to be present to store data (openEHR resources) that are compliant with the Template.
 1. Place Templates as Operational Template (.opt) or WEbtemplate (.json)
 
-## Startup
 
+Skript das beim Startup ausgeführt wird entweder in Dockerfile (oder Docker-Compose?)
+//TODO
+
+### Add Templates after Startup
+Skript für den Upload (CURL + OPT und WEBTEMPLATE)
+//TODO
+
+## Startup
+start both containers detached, without blocking the terminal
+`docker-compose up -d`
 
 
