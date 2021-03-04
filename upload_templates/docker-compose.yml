@@ -1,0 +1,19 @@
+version: "3"
+
+services:
+  upload_templates:
+#    image: local/python_test:latest
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+#      args:
+#        - BASE_URL=http://141.5.100.246/ehrbase/rest/openehr/v1/
+
+#   volumes:
+#     - ${PWD}/output.d:/usr/src/app/output.d
+    ### base url and basic authentication credentials for Dockerfile
+#    environment:
+#      BASE_URL: ${BASE_URL}
+#      UN: ${UN}
+#      PW: ${PW}
+
