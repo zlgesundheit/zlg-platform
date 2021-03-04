@@ -15,7 +15,7 @@ EHRbase is an openEHR Clinical Data Repository, providing a standard-based backe
 
 | Branch | Use | Link |
 | ------ | ------ | -----|
-| master | ... | [Link](https://gitlab.gwdg.de/medinf/ivf/zukunftslabor-gesundheit/zlg-ehrbase/-/tree/master) |
+| master | Intermediate Branch before deploying in zl-prod | [Link](https://gitlab.gwdg.de/medinf/ivf/zukunftslabor-gesundheit/zlg-ehrbase/-/tree/master) |
 | zl-prod  | Docker und Skripte für Inbetriebnahme einer Instanz | [Link](https://gitlab.gwdg.de/medinf/ivf/zukunftslabor-gesundheit/zlg-ehrbase/-/tree/zl-prod) |
 | zl-dev-test | Testumgebung mit Notizen, Anleitungen und Testdateien | [Link](https://gitlab.gwdg.de/medinf/ivf/zukunftslabor-gesundheit/zlg-ehrbase/-/tree/zl-dev-test) |
 
