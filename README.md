@@ -10,6 +10,8 @@ The servers base adress is `<IP>/ehrbase`.
 The EHRBase [REST API](/ehrbase/swagger-ui.html#/) is available after server start.  
 The OpenEHR-Specification also offers an overview of the [OpenEHR REST API](https://specifications.openehr.org/releases/ITS-REST/Release-1.0.0/ehr.html).
 
+A running EHRBase should be available at http://141.5.100.115/ehrbase ([REST API](http://141.5.100.115/ehrbase/swagger-ui.html))
+
 ## Preparation Steps
 
 ### Add Templates on Startup
