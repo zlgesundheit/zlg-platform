@@ -7,19 +7,17 @@ services:
       - 80:8080
     networks:
       - ehrbase-net
+    env_file:
+      - .env.ehrbase
     environment:
       DB_URL: jdbc:postgresql://ehrdb:5432/ehrbase
       DB_USER: ehrbase
       DB_PASS: ehrbase
-      SECURITY_AUTHTYPE: BASIC
-      AUTH_USER: ehrbase-user
-      AUTH_PASSWORD: SuperSecretPassword
-      SYSTEM_NAME: local.ehrbase.org
-    restart: always
+    restart: on-failure
 
   ehrdb:
-    image: ehrbaseorg/ehrbase-postgres:latest    #use ehrbase/ in the future. DB setup not working in new image atm
-    ports: #may not need to be exposed in prod since docker bridges do the trick
+    image: ehrbase/ehrbase-postgres:latest
+    ports:
       - 5432:5432
     networks:
       - ehrbase-net
