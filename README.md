@@ -20,7 +20,7 @@ EHRbase is an openEHR Clinical Data Repository, providing a standard-based backe
 | zl-dev-test | Testumgebung mit Notizen, Anleitungen und Testdateien | [Link](https://gitlab.gwdg.de/medinf/ivf/zukunftslabor-gesundheit/zlg-ehrbase/-/tree/zl-dev-test) |
 
 ## HowTo: Merge only "prod"-files from zl-dev-test to zl-prod or master
-We can merge specific merged files into master/prod by using:
+We can merge specific files into master/prod by using:
 ```
 $ git branch
 * master
