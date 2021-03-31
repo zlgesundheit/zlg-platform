@@ -14,8 +14,14 @@
 4. Prepare and build .war-File from maven-project in "webserver-project/..." (run maven clean install to get .war-file then use .war file for deployment in Tomcat Docker)
 
 ---
+
+# TEMPLATE-NAMES MUST NOT START WITH A NUMBER...
+
+---
 Planned:
 Docker 1: Setup Skripte (Upload OPTs, generate classes and mvn build)
 Docker 2: Tomcat Server
 Docker 3: EHRBase
 
+## Considerations:
+- Maybe it would be usefull to run the command for a single data set with specific template to streamline the storing of ONE data set in the EHRBase (For an other data set run the command for that data-set..)
