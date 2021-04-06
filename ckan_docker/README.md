@@ -12,6 +12,7 @@ the CKAN-Instance might be run centralized in the longterm to give an overview o
 - [CKAN-API Guide to interact with the instance from the ETL-Processes](https://docs.ckan.org/en/2.9/api/#uploading-a-new-version-of-a-resource-file)
 (ETL is run by scripts/zlg-webserver/zlg-api)
 - [CKAN@Github](https://github.com/ckan/ckan)
+- [CKAN Docker-Repo WIP](https://github.com/ckan/ckan-docker)
 
 ## Further
 - setup a centralized user management like keycloak
