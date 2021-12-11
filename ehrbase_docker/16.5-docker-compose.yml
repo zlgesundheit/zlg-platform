@@ -3,7 +3,7 @@ version: '3'
 services:
   ehrbase:
     # I worked with 0.16.5 before. Testing 0.17.2 to post Issue at EHRBase GIT -> 17.2 braucht volle COmposer info. Mal testen..
-    image: ehrbase/ehrbase:next
+    image: ehrbase/ehrbase:0.16.5
     ports:
       - 80:8080
     networks:
@@ -14,7 +14,7 @@ services:
       DB_URL: jdbc:postgresql://ehrdb:5432/ehrbase
       DB_USER: ehrbase
       DB_PASS: ehrbase
-    restart: always
+    restart: on-failure
 
   ehrdb:
     image: ehrbase/ehrbase-postgres:latest
@@ -29,7 +29,6 @@ services:
       POSTGRES_PASSWORD: postgres
       EHRBASE_USER: ehrbase
       EHRBASE_PASSWORD: ehrbase
-    restart: always
 
 networks:
   ehrbase-net: {}
