@@ -3,7 +3,7 @@ version: '3'
 services:
   ehrbase:
     # I worked with 0.16.5 before. Testing 0.17.2 to post Issue at EHRBase GIT -> 17.2 braucht volle COmposer info. Mal testen..
-    image: ehrbase/ehrbase:next
+    image: ehrbase/ehrbase:latest
     ports:
       - 80:8080
     networks:

@@ -1,6 +1,6 @@
 EHRBase original repo can be found here https://github.com/ehrbase/ehrbase  
 
-EHRBase ist currently running in version 0.15 but is under heavy development.
+EHRBase ist currently running in version 0.20.0 and is constantly updated.
 At the moment i am tracking some issues and findings about the ehrbase-environment here: https://pad.gwdg.de/uSeuJQ82R5mstpexESQtig?both  
 There is a client library written in java, that is meant to communicate with openEHR-Servers. Name: openEHR_SDK
 
