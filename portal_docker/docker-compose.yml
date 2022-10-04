@@ -7,7 +7,7 @@ volumes:
 services:
   portal-keycloak:
       #image: 
-      image: jboss/keycloak:15.0.2
+      image: jboss/keycloak:latest
       environment:
         KEYCLOAK_USER: admin
         KEYCLOAK_PASSWORD: Pa55w0rd
@@ -40,6 +40,7 @@ services:
         - 80:80
      
   num-portal:
+    #image: docker.gitlab.gwdg.de/medinf/kvf/kardio/dzhk/cofoni/num-portal:1.8.0
     image: docker.gitlab.gwdg.de/medinf/kvf/kardio/dzhk/cofoni/num-portal:1.8.0-dev-d63c2f21
     #image: docker.gitlab.gwdg.de/medinf/ivf/zukunftslabor-gesundheit/num-portal-for-zlg:1.8.0-feature-0a658ed7
     environment:
@@ -51,8 +52,8 @@ services:
       KEYCLOAK_ENDPOINT: http://portal-keycloak:8080
       KEYCLOAK_REALM: crr
       KEYCLOAK_CLIENT_ID: num-portal
-      KEYCLOAK_CLIENT_SECRET: 38482b9b-c5c2-4c3a-b2ee-e3582ec02f5c
-      KEYCLOAK_CANONICAL_URL: https://141.5.100.99:8443
+      KEYCLOAK_CLIENT_SECRET: nYtWaR4Q6AaZT34pNQOaxhz3DLUaPTaC
+      KEYCLOAK_CANONICAL_URL: http://141.5.100.99:8080
       EHRBASE_ENDPOINT: http://portal-ehrbase:8080
       EHRBASE_USER: ehrbase-admin
       EHRBASE_PASSWORD: EvenMoreSecretPassword
