@@ -1,0 +1,107 @@
+version: '3'
+
+volumes:
+  postgres_data:
+      driver: local
+
+services:
+  portal-keycloak:
+      #image: 
+      image: jboss/keycloak:15.0.2
+      environment:
+        KEYCLOAK_USER: admin
+        KEYCLOAK_PASSWORD: Pa55w0rd
+        DB_VENDOR: h2
+      networks:
+        - ehrbase-net
+      ports:
+        #- 8180:8080
+        - 8443:8443
+      #restart: on-failure
+
+  postgres:
+      image: postgres
+      environment:
+        POSTGRES_PASSWORD: postgres
+      volumes:
+        - ./.pgdata:/var/lib/postgresql/data
+      networks:
+        - ehrbase-net
+        - db-net
+      ports:
+        - 5432:5432
+
+  num-webapp:
+      image: docker.gitlab.gwdg.de/medinf/kvf/kardio/dzhk/cofoni/num-portal-webapp:1.8.0-dev-808cf071
+      #image: numresearchdataplatform/num-portal-webapp:1.8.0
+      volumes:
+        - ./config.deploy.json:/usr/share/nginx/html/assets/config/config.deploy.json
+      ports:
+        - 80:80
+     
+  num-portal:
+    image: docker.gitlab.gwdg.de/medinf/kvf/kardio/dzhk/cofoni/num-portal:1.8.0-dev-d63c2f21
+    #image: docker.gitlab.gwdg.de/medinf/ivf/zukunftslabor-gesundheit/num-portal-for-zlg:1.8.0-feature-0a658ed7
+    environment:
+      SPRING_PROFILES_ACTIVE: deploy
+      DATABASE_SERVER: postgres:5432
+      DATABASE_NAME: postgres
+      DATABASE_USERNAME: postgres
+      DATABASE_PASSWORD: postgres
+      KEYCLOAK_ENDPOINT: http://portal-keycloak:8080
+      KEYCLOAK_REALM: crr
+      KEYCLOAK_CLIENT_ID: num-portal
+      KEYCLOAK_CLIENT_SECRET: 38482b9b-c5c2-4c3a-b2ee-e3582ec02f5c
+      KEYCLOAK_CANONICAL_URL: https://141.5.100.99:8443
+      EHRBASE_ENDPOINT: http://portal-ehrbase:8080
+      EHRBASE_USER: ehrbase-admin
+      EHRBASE_PASSWORD: EvenMoreSecretPassword
+      ATNA_ENABLED: 'false'
+      ATNA_HOST: localhost
+      ATNA_PORT: 1234
+      ZARS_ENABLED: 'false'
+      ZARS_EMAIL: mail
+      EMAIL_PORT: 25
+      EMAIL_HOST: localhost
+      MANAGEMENT_PORT: 8091
+      PSEUDONYMITY_SECRET: supersecret
+      SWAGGER_OAUTH2_CLIENT-NAME: num-portal-webapp
+      PRIVACY_MIN_HITS: 5
+    ports:
+      - 8090:8090
+    networks:
+      - ehrbase-net
+    depends_on:
+      - postgres
+
+  portal-pgadmin:
+    container_name: pgadmin4
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.de
+      PGADMIN_DEFAULT_PASSWORD: admin
+    networks:
+        - db-net
+    ports:
+        - 5050:80
+
+  portal-ehrbase:
+    image: ehrbase/ehrbase:next
+    ports:
+      - 8080:8080
+    networks:
+      - ehrbase-net
+    env_file:
+      - .env.ehrbase
+    environment:
+      DB_URL: jdbc:postgresql://postgres:5432/ehrbase
+      DB_USER: ehrbase
+      DB_PASS: 12345Z!
+    depends_on:
+      - postgres
+    restart: on-failure
+
+networks:
+  ehrbase-net: {}
+  db-net: {}
