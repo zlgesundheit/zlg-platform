@@ -1,0 +1,121 @@
+version: '3'
+
+services:
+  ehrbase:
+    image: ehrbase/ehrbase:latest
+    #ports:
+    #  - 443:8443
+    #  - 80:8080
+    expose:
+      - "8080"
+    networks:
+      - ehrbase-net
+    env_file:
+      - .env.ehrbase
+    environment:
+      DB_URL: jdbc:postgresql://ehrdb:5432/ehrbase
+      DB_USER: ehrbase
+      DB_PASS: ehrbase
+      VIRTUAL_HOST: c100-099.cloud.gwdg.de
+      LETSENCRPYT_HOST: c100-099.cloud.gwdg.de
+      VIRTUAL_PATH: /ehrbase
+      VIRTUAL_PORT: 8080
+      LETSENCRYPT_EMAIL: jendrik.richter@med.uni-goettingen.de
+    restart: always
+
+#  flask-http-server:
+#    image: someword/flask-hello-world:0.0.2
+#    expose:
+#      - "5000"
+#    environment:
+#      VIRTUAL_HOST: c100-099.cloud.gwdg.de
+#      LETSENCRPYT_HOST: c100-099.cloud.gwdg.de
+#      VIRTUAL_PORT: 5000
+#      VIRTUAL_PATH: /
+#      LETSENCRYPT_EMAIL: jendrik.richter@med.uni-goettingen.de
+#    networks:
+#      - ehrbase-net
+#    depends_on:
+#      - redis
+#  redis:
+#    image: redis
+
+  nginx-proxy:
+    image: nginxproxy/nginx-proxy
+    container_name: nginx-proxy
+    environment:
+      #HTTPS_METHOD: noredirect
+      ENABLE_IPV6: "false"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - vhosts:/etc/nginx/vhost.d
+      #- html:/usr/share/nginx/html
+      - certbot_www:/etc/nginx/html
+      #- certs:/etc/nginx/certs
+      - certbot_conf:/etc/nginx/certs
+      - conf:/etc/nginx/conf.d
+      #- ./custom-conf.conf:/etc/nginx/conf.d/custom-conf.conf
+      #- ./c100-099.cloud.gwdg.de_location:/etc/nginx/vhost.d/c100-099.cloud.gwdg.de_location
+    networks:
+      - ehrbase-net
+      - cert-net
+    ports:
+      - 80:80
+      - 443:443
+    restart: always
+
+  certbot:
+    image: certbot/certbot
+    container_name: certbot
+    networks:
+      - cert-net
+    environment:
+      VIRTUAL_HOST: c100-099.cloud.gwdg.de
+      LETSENCRPYT_HOST: c100-099.cloud.gwdg.de
+      VIRTUAL_PATH: /.well-known
+      LETSENCRYPT_EMAIL: jendrik.richter@med.uni-goettingen.de
+    volumes: 
+      - certbot_conf:/etc/letsencrypt
+      - certbot_www:/var/www/certbot
+    command: certonly --webroot -w /var/www/certbot --force-renewal --email jendrik.richter@med.uni-goettingen.de -d c100-099.cloud.gwdg.de --agree-tos
+
+#  acme-companion:
+#    image: nginxproxy/acme-companion
+#    volumes: 
+#      - vhosts:/etc/nginx/vhost.d
+#      - html:/usr/share/nginx/html
+#      - certs:/etc/nginx/certs
+#      - /var/run/docker.sock:/var/run/docker.sock:ro
+#      - acme:/etc/acme.sh
+#    environment:
+#      DEFAULT_EMAIL: jendrik.richter@med.uni-goettingen.de
+#      NGINX_PROXY_CONTAINER: nginx-proxy
+      #NGINX_DOCKER_GEN_CONTAINER: nginx-proxy
+
+  ehrdb:
+    image: ehrbase/ehrbase-postgres:latest
+    ports:
+      - 5432:5432
+    networks:
+      - ehrbase-net
+    volumes:
+      - ./.pgdata:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      EHRBASE_USER: ehrbase
+      EHRBASE_PASSWORD: ehrbase
+    restart: always
+
+networks:
+  ehrbase-net: {}
+  cert-net: {}
+
+volumes:
+  certs:
+  vhosts:
+  html:
+  acme:
+  conf:
+  certbot_conf:
+  certbot_www:

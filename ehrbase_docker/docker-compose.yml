@@ -2,10 +2,9 @@ version: '3'
 
 services:
   ehrbase:
-    # I worked with 0.16.5 before. Testing 0.17.2 to post Issue at EHRBase GIT -> 17.2 braucht volle COmposer info. Mal testen..
     image: ehrbase/ehrbase:latest
-    ports:
-      - 80:8080
+    expose:
+      - "8080"
     networks:
       - ehrbase-net
     env_file:
@@ -15,6 +14,28 @@ services:
       DB_USER: ehrbase
       DB_PASS: ehrbase
     restart: always
+
+  nginx:
+    image: nginx
+    container_name: nginx
+    ports:
+      - 80:80
+      - 443:443
+    networks:
+      - ehrbase-net
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+    restart: unless-stopped
+
+  certbot:
+    image: certbot/certbot
+    container_name: certbot
+    volumes: 
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+    command: certonly --webroot -w /var/www/certbot --force-renewal --email jendrik.richter@med.uni-goettingen.de -d c100-099.cloud.gwdg.de --agree-tos
 
   ehrdb:
     image: ehrbase/ehrbase-postgres:latest

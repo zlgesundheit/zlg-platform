@@ -75,17 +75,14 @@ services:
     depends_on:
       - postgres
 
-  portal-pgadmin:
-    container_name: pgadmin4
-    image: dpage/pgadmin4
+  portal-adminer:
+    container_name: adminer
+    image: adminer
     restart: always
-    environment:
-      PGADMIN_DEFAULT_EMAIL: admin@admin.de
-      PGADMIN_DEFAULT_PASSWORD: admin
     networks:
         - db-net
     ports:
-        - 5050:80
+        - 5050:8080
 
   portal-ehrbase:
     image: ehrbase/ehrbase:next
