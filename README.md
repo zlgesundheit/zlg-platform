@@ -1,4 +1,4 @@
-# zlg-ehrbase
+# zlg-platform
 
 ## Context
 The ZLG is using the [EHRBase](https://github.com/ehrbase/ehrbase) a Clinical Data Repository to store data in an interopable way using the openEHR-Technology Framework.
