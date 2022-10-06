@@ -6,12 +6,13 @@
 - [Welcome](./documentation/context/home.md)
 - [Zukunftslabor Gesundheit](./documentation/context/zukunftslabor_gesundheit.md)  
 - [What is OpenEHR?](./documentation/context/what_openehr_is_used_for.md)  
-
-# Technische Details
-- [Platform-Architecture](./documentation/platform/architecture.md)   
-- [OpenEHR-Details](./documentation/platform/openehr_details.md)
+  - [OpenEHR-Details](./documentation/platform/openehr_details.md)
   - [Community and Specification](./documentation/platform/openehr_details/specification_and_community.md)
   - [Modelling and Reviews](./documentation/platform/openehr_details/modelling_and_reviews.md)
+
+# Technische Details
+- [Platform-Architecture-WIP](./documentation/platform/architecture.md)  
+- [Platform-Security-WIP](./documentation/platform/platform_security.md) 
   specification_and_community.md)
 - [OpenEHR-Repository](./documentation/platform/openehr_repository.md)
   - [EHRBase](./documentation/platform/openehr_repository/ehrbase.md)
