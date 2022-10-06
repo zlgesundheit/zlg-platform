@@ -12,7 +12,7 @@
 
 # Technische Details
 - [Platform-Architecture-WIP](./documentation/platform/architecture.md)  
-- [Platform-Security-WIP](./documentation/platform/platform_security.md) 
+- [Platform-Security](./documentation/platform/platform_security.md) 
   specification_and_community.md)
 - [OpenEHR-Repository](./documentation/platform/openehr_repository.md)
   - [EHRBase](./documentation/platform/openehr_repository/ehrbase.md)
@@ -33,10 +33,10 @@
   - [HaMSTR-Loader](./documentation/platform/etl_tools/hamstr_loader.md)
   - [Better CSV-Importer](./documentation/platform/etl_tools/better-import.md)
 - [FAIR Access](./documentation/platform/fair_access.md) 
-  - [WebPortal NUM-Portal](./documentation/platform/num_portal/num_portal.md)
-    - [Configuration](./documentation/platform/num_portal/configuration.md)
-    - [Example](./documentation/platform/num_portal/example.md)
-    - [Download](./documentation/platform/num_portal/download.md)
+  - [WebPortal NUM-Portal-WIP](./documentation/platform/num_portal/num_portal.md)
+    - [Configuration-WIP](./documentation/platform/num_portal/configuration.md)
+    - [Example-WIP](./documentation/platform/num_portal/example.md)
+    - [Download-WIP](./documentation/platform/num_portal/download.md)
   - [Pseudonymisation / Anonymisation](./documentation/platform/management/pseudonymisation_anonymisation.md)
   - [Governance](./documentation/platform/management/governance.md)
 
