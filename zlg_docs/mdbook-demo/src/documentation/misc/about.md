@@ -23,7 +23,7 @@ This repository comprises or is linked with the following repos:
  Backend des Physio-Trackers aus TP3
 * [Physio-Tracker Demo / Proof-of-concept](https://gitlab.gwdg.de/medinf/ivf/zukunftslabor-gesundheit/physio-app_proof-of-concept):
  A proof of concept application with some demo excercises for the Physio Tracker App. 
-* [docs-zlg](https://gitlab.gwdg.de/medinf/ivf/zukunftslabor-gesundheit/docs-zlg):
+* [docs-zlg](https://gitlab.gwdg.de/medinf/ivf/zukunftslabor-gesundheit/zlg-platform/-/tree/master/zlg_docs):
  Source-Code for the creation of this documentation pages
 * [ZLG EHRBase](https://gitlab.gwdg.de/medinf/ivf/zukunftslabor-gesundheit/zlg-ehrbase):
  Testumgebung und Docker-Compose File für eine [EHRBase](https://ehrbase.org) 
@@ -33,10 +33,6 @@ This repository comprises or is linked with the following repos:
 ### Website/Documentation
 
 This documentation is created with [mdbook](https://github.com/azerupi/mdBook) and [docker-mdbook](https://github.com/HillLiu/docker-mdbook).
-
-The source code of this website is available at [zlg-docs GitLab Repository](https://gitlab.gwdg.de/medinf/ivf/zukunftslabor-gesundheit/docs-zlg) 
-
-### Documentation
 
 This documentation is licensed under Creative Commons license [CC-BY-SA 4.0](http://creativecommons.org/licenses/by-sa/4.0/) unless otherwise stated.
 
