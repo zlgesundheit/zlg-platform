@@ -42,7 +42,7 @@ Für die Ehrbase muss vorher ein Benutzer und weiteres erstellt werden, die nach
 - Die externe IP des Keycloak-Servers angeben: `KEYCLOAK_CANONICAL_URL: http://141.5.100.99:8180`
   - NUM-Portal container NEUERSTELLEN, damit neue Umgebungsvariablen geladen werden
 
-=== NUM Webapp starten
+=== NUM Webapp starten --> Inzwischen gedockert
 
 - Git repo der WebApp klonen
 - In config.dev.json URL des Backends und Keycloak angeben
@@ -77,7 +77,7 @@ services:
       image: jboss/keycloak:15.0.2
       environment:
         KEYCLOAK_USER: admin
-        KEYCLOAK_PASSWORD: AdminPassword
+        KEYCLOAK_PASSWORD: qwe321
         DB_VENDOR: h2
       networks:
         - ehrbase-net

@@ -10,7 +10,7 @@ services:
       image: jboss/keycloak:latest
       environment:
         KEYCLOAK_USER: admin
-        KEYCLOAK_PASSWORD: Pa55w0rd
+        KEYCLOAK_PASSWORD: qwe321
         DB_VENDOR: h2
       networks:
         - ehrbase-net
@@ -95,7 +95,7 @@ services:
     environment:
       DB_URL: jdbc:postgresql://postgres:5432/ehrbase
       DB_USER: ehrbase
-      DB_PASS: 12345Z!
+      DB_PASS: qwe321
     depends_on:
       - postgres
     restart: on-failure
