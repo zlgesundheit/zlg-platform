@@ -18,14 +18,24 @@ Mit den generierten Daten einloggen
 === Startup Docker
 docker-compose -f compose.yml up -d
 
+=== Have Ports 80 and 8090 (num-portal), 8443 (keycloak) available from the outer world
+
 === Initialize DB
 Für die Ehrbase muss vorher ein Benutzer und weiteres erstellt werden, die nachfolgenden Befehle laden die SQL Datei in den Container und lad diese in die Postgres Datenbank
 
-`docker cp ./sql/01-ehrbase-cloud-db-setup.sql portal-zlg_postgres_1:/docker-entrypoint-initdb.d/dump.sql`  
-`docker exec -u postgres portal-zlg_postgres_1 psql postgres postgres -f docker-entrypoint-initdb.d/dump.sql`
+`docker cp ./sql/01-ehrbase-cloud-db-setup.sql portal_docker_postgres_1:/docker-entrypoint-initdb.d/dump.sql`  
+`docker exec -u postgres portal_docker_postgres_1 psql postgres postgres -f docker-entrypoint-initdb.d/dump.sql`
 
 === Setup KeyCloak and get CLientSecret
-- In der Keycloak [Adminoberfläche](http://localhost:8180/auth/) anmelden
+- In der Keycloak [Adminoberfläche](http://1141.5.100.99:8443/auth/) anmelden
+- Einen neuen Realm mit der Konfig-Datei im Ordner keycloak ([Alternativ im Gitlab](https://gitlab.gwdg.de/medinf/kvf/kardio/dzhk/cofoni/cofoni-keycloak/-/blob/master/docker/keycloak-dump.json)) anlegen
+- In dem neu anlegeten Realm unter dem Client Num-Portal ein neues Secret generieren
+    - **Clients -> num-Portal -> Credentials -> Regenerate Secret**
+- Das neu generierte Secret in die yml-Datei unter 
+`KEYCLOAK_CLIENT_SECRET:` eintragen
+- Die externe IP des Keycloak-Servers angeben: `KEYCLOAK_CANONICAL_URL: http://141.5.100.99:8443` (oder 8080)
+  - NUM-Portal container NEUERSTELLEN, damit neue Umgebungsvariablen geladen werden (`docker-compose up -d num-portal`)
+
 - Falls ein HTTPS-Fehler auftritt:  
 `docker exec -it portal-zlg_portal-keycloak_1 bash`  
 `cd opt/jboss/keycloak/bin/`  
@@ -33,14 +43,6 @@ Für die Ehrbase muss vorher ein Benutzer und weiteres erstellt werden, die nach
 `./kcadm.sh update realms/crr -s sslRequired=NONE` <-- CRR Realm, kann erst deaktiviert werden, wenn CRR erstellt wurde
 `./kcadm.sh update realms/master -s sslRequired=NONE`  <--Master-Real
   - Restart Server
-- Sonst hier weiter:
-- Einen neuen Realm mit der Konfig-Datei im Ordner keycloak ([Alternativ im Gitlab](https://gitlab.gwdg.de/medinf/kvf/kardio/dzhk/cofoni/cofoni-keycloak/-/blob/master/docker/keycloak-dump.json)) anlegen
-- In dem neu anlegeten Realm unter dem Client Num-Portal ein neues Secret generieren
-    - Clients -> Num-Portal -> Credentials -> Regenerate Secret
-- Das neu generierte Secret in die yml-Datei unter 
-`KEYCLOAK_CLIENT_SECRET:` eintragen
-- Die externe IP des Keycloak-Servers angeben: `KEYCLOAK_CANONICAL_URL: http://141.5.100.99:8180`
-  - NUM-Portal container NEUERSTELLEN, damit neue Umgebungsvariablen geladen werden
 
 === NUM Webapp starten --> Inzwischen gedockert
 
@@ -57,10 +59,13 @@ ng serve --host 0.0.0.0 --port 4200``
 === WebApp Nutzer anlegen
 
 - Unter http://localhost:80/ in der Webapp anmelden und einen neuen Benutzer registrieren
-- Unter http://localhost:5050/ in pgAdmin einen neuen Server hinzufügen (Check IP des Postgres-Containers per Docker inpect -> Netzwerk db-net), Adresse, Benutzer und Password lauten postgres
-- In der Postgres db unter dem Schema "num" in der Tabelle "user_details" ein update script erstellen und damit von dem neuen Nutzer den approved status auf true setzen  
-`UPDATE num.user_details SET approved=true;`
+
 - In der Keycloak Adminoberfläche unter Users -> View all users -> neuen Nutzer editieren -> Role Mapping -> Alle Rollen zuweisen
+- In der Keycloak Adminoberfläche unter Users -> View all users -> neuen Nutzer editieren -> Email Verified = ON -> Save (Not working sometimes, try pgadmin/adminer way below or wait some time (after relogging) in the webapp for the user settings to update)
+ODER
+> - Unter http://localhost:5050/ in pgAdmin einen neuen Server hinzufügen (Check IP des Postgres-Containers per Docker inpect -> Netzwerk db-net), Adresse, Benutzer und Password lauten postgres
+> - In der Postgres db unter dem Schema "num" in der Tabelle "user_details" ein update script erstellen und damit von dem neuen Nutzer den approved status auf true setzen `UPDATE num.user_details SET approved=true;`
+
 - In der Webapp neu anmelden
 - Fertig!
 
