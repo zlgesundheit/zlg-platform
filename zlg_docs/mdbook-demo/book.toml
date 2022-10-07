@@ -18,6 +18,7 @@ plantuml-cmd="java -jar /app/plantuml.jar"
 
 [output.html]
 mathjax-support = true
+site-url = "/zlg/"
 additional-css = ["assets/mermaid.css", "assets/print.css"]
 additional-js = ["assets/mermaid.min.js", "assets/import-html.js"]
 
