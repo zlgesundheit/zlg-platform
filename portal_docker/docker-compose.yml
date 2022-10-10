@@ -5,8 +5,7 @@ volumes:
       driver: local
 
 services:
-  portal-keycloak:
-      #image: 
+  portal-keycloak: 
       image: jboss/keycloak:latest
       environment:
         KEYCLOAK_USER: admin
@@ -17,7 +16,7 @@ services:
       ports:
         #- 8180:8080
         - 8443:8443
-      #restart: on-failure
+      restart: on-failure
 
   postgres:
       image: postgres
@@ -33,14 +32,12 @@ services:
 
   num-webapp:
       image: docker.gitlab.gwdg.de/medinf/kvf/kardio/dzhk/cofoni/num-portal-webapp:1.8.0-dev-808cf071
-      #image: numresearchdataplatform/num-portal-webapp:1.8.0
       volumes:
         - ./config.deploy.json:/usr/share/nginx/html/assets/config/config.deploy.json
       ports:
         - 80:80
      
   num-portal:
-    #image: docker.gitlab.gwdg.de/medinf/kvf/kardio/dzhk/cofoni/num-portal:1.8.0
     image: docker.gitlab.gwdg.de/medinf/kvf/kardio/dzhk/cofoni/num-portal:1.8.0-dev-d63c2f21
     #image: docker.gitlab.gwdg.de/medinf/ivf/zukunftslabor-gesundheit/num-portal-for-zlg:1.8.0-feature-0a658ed7
     environment:
@@ -52,8 +49,8 @@ services:
       KEYCLOAK_ENDPOINT: http://portal-keycloak:8080
       KEYCLOAK_REALM: crr
       KEYCLOAK_CLIENT_ID: num-portal
-      KEYCLOAK_CLIENT_SECRET: nYtWaR4Q6AaZT34pNQOaxhz3DLUaPTaC
-      KEYCLOAK_CANONICAL_URL: http://141.5.100.99:8080
+      KEYCLOAK_CLIENT_SECRET: pNqUDvcHEzEcxK2h43e5TMWlqszOIdor
+      KEYCLOAK_CANONICAL_URL: http://141.5.100.99:8080 #8443
       EHRBASE_ENDPOINT: http://portal-ehrbase:8080
       EHRBASE_USER: ehrbase-admin
       EHRBASE_PASSWORD: EvenMoreSecretPassword
@@ -95,7 +92,8 @@ services:
     environment:
       DB_URL: jdbc:postgresql://postgres:5432/ehrbase
       DB_USER: ehrbase
-      DB_PASS: qwe321
+      DB_PASS: 12345Z!
+      # If you change the password you need to changed this in sql-init script too!
     depends_on:
       - postgres
     restart: on-failure
