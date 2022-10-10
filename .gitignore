@@ -3,3 +3,4 @@ certbot/conf/
 portal_docker/.pgdata/
 .env
 portal_docker/.env
+ehrbase_docker/.env
