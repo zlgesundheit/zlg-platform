@@ -5,7 +5,7 @@
 -- the first section of the script is similar to createdb.sql
 -- See README for more details re required application configuration
 
-CREATE ROLE ehrbase WITH LOGIN PASSWORD '12345Z!';
+CREATE ROLE ehrbase WITH LOGIN PASSWORD 'EhrbasePassword';
 CREATE DATABASE ehrbase ENCODING 'UTF-8' TEMPLATE template0;
 GRANT ALL PRIVILEGES ON DATABASE ehrbase TO ehrbase;
 
