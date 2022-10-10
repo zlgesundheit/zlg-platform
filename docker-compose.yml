@@ -11,8 +11,11 @@ services:
       - ./ehrbase_docker/.env.ehrbase
     environment:
       DB_URL: jdbc:postgresql://ehrdb:5432/ehrbase
-      DB_USER: ehrbase
-      DB_PASS: ehrbase
+      SYSTEM_NAME: local.ehrbase.org
+      SECURITY_AUTHTYPE: BASIC
+      SYSTEM_ALLOW_TEMPLATE_OVERWRITE: true
+      ADMIN_API_ACTIVE: true
+      #Find Passwords in .env-File (DB_USER, DB_PASS, SECURITY_AUTHUSER, SECURITY_AUTHPASSWORD, SECURITY_AUTHADMINUSER, SECURITY_AUTHADMINPASSWORD).
     restart: always
     depends_on:
       - ehrdb
@@ -59,11 +62,10 @@ services:
       - ehrbase-net
     volumes:
       - ./ehrbase_docker/.pgdata:/var/lib/postgresql/data
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      EHRBASE_USER: ehrbase
-      EHRBASE_PASSWORD: ehrbase
+    env_file:
+      - ./ehrbase_docker/.env.ehrdb
+    #environment:
+      #Find Passwords in .env-File (POSTGRES_USER, POSTGRES_PASSWORD, EHRBASE_USER, EHRBASE_PASSWORD).
     restart: always
 
 networks:

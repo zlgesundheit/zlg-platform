@@ -7,12 +7,25 @@ services:
       - 8080:8080
     networks:
       - ehrbase-net
-    env_file:
-      - .env.ehrbase
     environment:
-      DB_URL: jdbc:postgresql://ehrdb:5432/ehrbase
-      DB_USER: ehrbase
-      DB_PASS: ehrbase
+      - DB_URL=jdbc:postgresql://ehrdb:5432/ehrbase
+      - DB_USER=${DB_USER}
+      - DB_PASS=${DB_PASS}
+      - SERVER_NODENAME=local.ehrbase.org
+      - SECURITY_AUTHTYPE=BASIC
+      - SECURITY_AUTHUSER=${SECURITY_AUTHUSER}
+      - SECURITY_AUTHPASSWORD=${SECURITY_AUTHPASSWORD}
+      - SECURITY_AUTHADMINUSER=${SECURITY_AUTHADMINUSER}
+      - SECURITY_AUTHADMINPASSWORD=${SECURITY_AUTHADMINPASSWORD}
+      - MANAGEMENT_ENDPOINTS_WEB_EXPOSURE=env,health,info,metrics,prometheus
+      - MANAGEMENT_ENDPOINTS_WEB_BASEPATH=/management
+      - MANAGEMENT_ENDPOINT_ENV_ENABLED=false
+      - MANAGEMENT_ENDPOINT_HEALTH_ENABLED=false
+      - MANAGEMENT_ENDPOINT_HEALTH_DATASOURCE_ENABLED=false
+      - MANAGEMENT_ENDPOINT_INFO_ENABLED=false
+      - MANAGEMENT_ENDPOINT_METRICS_ENABLED=false
+      - MANAGEMENT_ENDPOINT_PROMETHEUS_ENABLED=false
+      - MANAGEMENT_ENDPOINT_HEALTH_PROBES_ENABLED=false
     restart: always
 
   ehrdb:
@@ -24,12 +37,11 @@ services:
     volumes:
       - ./.pgdata:/var/lib/postgresql/data
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      EHRBASE_USER: ehrbase
-      EHRBASE_PASSWORD: ehrbase
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - EHRBASE_USER=${EHRBASE_USER}
+      - EHRBASE_PASSWORD=${EHRBASE_PASSWORD}
     restart: always
 
 networks:
   ehrbase-net: {}
-

@@ -26,6 +26,8 @@ Für die Ehrbase muss vorher ein Benutzer und weiteres erstellt werden, die nach
 `docker cp ./sql/01-ehrbase-cloud-db-setup.sql portal_docker_postgres_1:/docker-entrypoint-initdb.d/dump.sql`  
 `docker exec -u postgres portal_docker_postgres_1 psql postgres postgres -f docker-entrypoint-initdb.d/dump.sql`
 
+> Der Service "portal-ehrbase" meldet sich mit dem im SQL-Init-Skript festgelegten Passwort bei der DB an. Diese müssen daher übereinstimmen.
+
 === Setup KeyCloak and get CLientSecret
 - In der Keycloak [Adminoberfläche](http://1141.5.100.99:8443/auth/) anmelden
 - Einen neuen Realm mit der Konfig-Datei im Ordner keycloak ([Alternativ im Gitlab](https://gitlab.gwdg.de/medinf/kvf/kardio/dzhk/cofoni/cofoni-keycloak/-/blob/master/docker/keycloak-dump.json)) anlegen
@@ -62,8 +64,8 @@ ng serve --host 0.0.0.0 --port 4200``
 
 - In der Keycloak Adminoberfläche unter Users -> View all users -> neuen Nutzer editieren -> Role Mapping -> Alle Rollen zuweisen
 - In der Keycloak Adminoberfläche unter Users -> View all users -> neuen Nutzer editieren -> Email Verified = ON -> Save (Not working sometimes, try pgadmin/adminer way below or wait some time (after relogging) in the webapp for the user settings to update)
-ODER
-> - Unter http://localhost:5050/ in pgAdmin einen neuen Server hinzufügen (Check IP des Postgres-Containers per Docker inpect -> Netzwerk db-net), Adresse, Benutzer und Password lauten postgres
+UND
+> - Unter http://localhost:5050/ in pgAdmin einen neuen Server hinzufügen (Check IP des Postgres-Containers per Docker inspect -> Netzwerk db-net), Adresse, Benutzer und Password lauten postgres
 > - In der Postgres db unter dem Schema "num" in der Tabelle "user_details" ein update script erstellen und damit von dem neuen Nutzer den approved status auf true setzen `UPDATE num.user_details SET approved=true;`
 
 - In der Webapp neu anmelden
