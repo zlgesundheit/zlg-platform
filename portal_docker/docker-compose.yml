@@ -18,19 +18,6 @@ services:
         - 8443:8443
       restart: on-failure
 
-  postgres:
-      image: postgres
-      environment:
-        - POSTGRES_USER=${POSTGRES_USER}
-        - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      volumes:
-        - ./.pgdata:/var/lib/postgresql/data
-      networks:
-        - ehrbase-net
-        - db-net
-      ports:
-        - 5432:5432
-
   num-webapp:
       image: docker.gitlab.gwdg.de/medinf/kvf/kardio/dzhk/cofoni/num-portal-webapp:1.8.0-dev-808cf071
       volumes:
@@ -71,6 +58,19 @@ services:
       - ehrbase-net
     depends_on:
       - postgres
+
+  postgres:
+    image: postgres
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    volumes:
+      - ./.pgdata:/var/lib/postgresql/data
+    networks:
+      - ehrbase-net
+      - db-net
+    ports:
+      - 5432:5432
 
   portal-adminer:
     container_name: adminer
