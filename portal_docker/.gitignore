@@ -3,3 +3,4 @@ certbot/conf/
 portal_docker/.pgdata/
 .env
 ./sql/01-ehrbase-cloud-db-setup.sql
+cert

@@ -8,43 +8,48 @@ services:
   portal-keycloak: 
       image: jboss/keycloak:latest
       environment:
-        - KEYCLOAK_USER=admin
-        - DB_VENDOR=h2
+        - KEYCLOAK_USER=${KEYCLOAK_USER}
         - KEYCLOAK_PASSWORD=${KEYCLOAK_PASSWORD}
+        #- DB_VENDOR=h2
+        - KC_DB_ADDR=postgres:5432
+        - DB_DATABASE=postgres
+        - DB_USER=${POSTGRES_USER}
+        - DB_PASSWORD=${POSTGRES_PASSWORD}
       networks:
         - ehrbase-net
       ports:
-        #- 8180:8080
         - 8443:8443
       restart: on-failure
 
   num-webapp:
-      image: docker.gitlab.gwdg.de/medinf/kvf/kardio/dzhk/cofoni/num-portal-webapp:1.8.0-dev-808cf071
+      #image: docker.gitlab.gwdg.de/medinf/kvf/kardio/dzhk/cofoni/num-portal-webapp:1.8.0-dev-808cf071
+      image: numresearchdataplatform/num-portal-webapp:1.9.0
       volumes:
         - ./config.deploy.json:/usr/share/nginx/html/assets/config/config.deploy.json
       ports:
         - 80:80
      
   num-portal:
-    image: docker.gitlab.gwdg.de/medinf/kvf/kardio/dzhk/cofoni/num-portal:1.8.0-dev-d63c2f21
+    #image: docker.gitlab.gwdg.de/medinf/kvf/kardio/dzhk/cofoni/num-portal:1.8.0-dev-d63c2f21
+    image: numresearchdataplatform/num-portal:1.9.0
     environment:
       - SPRING_PROFILES_ACTIVE=deploy
       - DATABASE_SERVER=postgres:5432
       - DATABASE_NAME=postgres
-      - DATABASE_USERNAME=postgres
-      - DATABASE_PASSWORD=${DATABASE_PASSWORD}
+      - DATABASE_USERNAME=${POSTGRES_USER}
+      - DATABASE_PASSWORD=${POSTGRES_PASSWORD}
       - KEYCLOAK_ENDPOINT=http://portal-keycloak:8080
       - KEYCLOAK_REALM=crr
-      - KEYCLOAK_CLIENT_ID:=num-portal
+      - KEYCLOAK_CLIENT_ID=num-portal
       - KEYCLOAK_CLIENT_SECRET=${KEYCLOAK_CLIENT_SECRET}
-      - KEYCLOAK_CANONICAL_URL=http://141.5.100.99:8080 #8443
+      - KEYCLOAK_CANONICAL_URL=https://141.5.100.99:8443 #8443 oder 8080
       - EHRBASE_ENDPOINT=http://portal-ehrbase:8080
       - EHRBASE_USER=${SECURITY_AUTHADMINUSER}
       - EHRBASE_PASSWORD=${SECURITY_AUTHADMINPASSWORD}
-      - ATNA_ENABLED='false'
+      - ATNA_ENABLED=false
       - ATNA_HOST=localhost
       - ATNA_PORT=1234
-      - ZARS_ENABLED='false'
+      - ZARS_ENABLED=false
       - ZARS_EMAIL=mail
       - EMAIL_PORT=25
       - EMAIL_HOST=localhost
@@ -56,13 +61,13 @@ services:
       - 8090:8090
     networks:
       - ehrbase-net
+      - db-net
     depends_on:
       - postgres
 
   postgres:
     image: postgres
     environment:
-      - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     volumes:
       - ./.pgdata:/var/lib/postgresql/data
@@ -72,15 +77,6 @@ services:
     ports:
       - 5432:5432
 
-  portal-adminer:
-    container_name: adminer
-    image: adminer
-    restart: always
-    networks:
-        - db-net
-    ports:
-        - 5050:8080
-
   portal-ehrbase:
     image: ehrbase/ehrbase:next
     ports:
@@ -89,8 +85,8 @@ services:
       - ehrbase-net
     environment:
       - DB_URL=jdbc:postgresql://postgres:5432/ehrbase
-      - DB_USER=${DB_USER}
-      - DB_PASS=${DB_PASS}
+      - DB_USER=${EB_DB_USER}
+      - DB_PASS=${EB_DB_PASS}
       - SERVER_NODENAME=local.ehrbase.org
       - SECURITY_AUTHTYPE=BASIC
       - SECURITY_AUTHUSER=${SECURITY_AUTHUSER}
@@ -109,6 +105,27 @@ services:
     depends_on:
       - postgres
     restart: on-failure
+
+  portal-adminer:
+    container_name: adminer
+    image: adminer
+    restart: always
+    networks:
+        - db-net
+    ports:
+        - 5050:8080
+
+  # portal-pgadmin:
+  #   container_name: pgadmin4
+  #   image: dpage/pgadmin4
+  #   restart: always
+  #   environment:
+  #     PGADMIN_DEFAULT_EMAIL: admin@admin.de
+  #     PGADMIN_DEFAULT_PASSWORD: admin
+  #   networks:
+  #       - db-net
+  #   ports:
+  #       - 5050:80
 
 networks:
   ehrbase-net: {}

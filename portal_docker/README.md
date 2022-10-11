@@ -5,6 +5,9 @@ Code, Adaption and Development and CI/CD for docker image for a NUM-Portal versi
 === Offizielles Image  
 - https://hub.docker.com/r/numresearchdataplatform/num-portal
 
+- https://github.com/NUM-Forschungsdatenplattform/num-portal-webapp
+Dockerfile und nginx-conf enthalten. SSL dafür einrichten und Zertifikat in NGINX einbinden und fertig?
+
 === Die COFONI bzw. ZLG-Version enthalten Anpassungen und verbesserte Usability
 - https://gitlab.gwdg.de/medinf/kvf/kardio/dzhk/cofoni
 - https://gitlab.gwdg.de/medinf/ivf/zukunftslabor-gesundheit/num-portal-for-zlg
@@ -29,7 +32,7 @@ Für die Ehrbase muss vorher ein Benutzer und weiteres erstellt werden, die nach
 > Der Service "portal-ehrbase" meldet sich mit dem im SQL-Init-Skript festgelegten Passwort bei der DB an. Diese müssen daher übereinstimmen.
 
 === Setup KeyCloak and get CLientSecret
-- In der Keycloak [Adminoberfläche](http://1141.5.100.99:8443/auth/) anmelden
+- In der Keycloak [Adminoberfläche](https://141.5.100.99:8443/auth/) bzw. [hier](https://141.5.100.99:8443/auth/admin/master/console/) anmelden
 - Einen neuen Realm mit der Konfig-Datei im Ordner keycloak ([Alternativ im Gitlab](https://gitlab.gwdg.de/medinf/kvf/kardio/dzhk/cofoni/cofoni-keycloak/-/blob/master/docker/keycloak-dump.json)) anlegen
 - In dem neu anlegeten Realm unter dem Client Num-Portal ein neues Secret generieren
     - **Clients -> num-Portal -> Credentials -> Regenerate Secret**
@@ -45,9 +48,10 @@ Für die Ehrbase muss vorher ein Benutzer und weiteres erstellt werden, die nach
 `./kcadm.sh update realms/crr -s sslRequired=NONE` <-- CRR Realm, kann erst deaktiviert werden, wenn CRR erstellt wurde
 `./kcadm.sh update realms/master -s sslRequired=NONE`  <--Master-Real
   - Restart Server
+  - Note: in config.deploy.json of the webapp the address is set with http:...:8080 --> About https+kc -> https://stackoverflow.com/questions/49859066/keycloak-docker-https-required --> Migrate the whole site (141.5.100.99) to https so cookies can be shared between same-site applications (see https://web.dev/same-site-same-origin/) 
+  - TEST: Set opera://flags/#same-site-by-default-cookies to enabled-same-site-support
 
-=== NUM Webapp starten --> Inzwischen gedockert
-
+=== NUM Webapp starten --> Inzwischen gedockert, siehe unten
 - Git repo der WebApp klonen
 - In config.dev.json URL des Backends und Keycloak angeben
 - Die Datei config.dev.json in den Ordner src\assets\config der WebApp kopieren
@@ -59,16 +63,28 @@ ng serve --host 0.0.0.0 --port 4200``
 - --public-host URL
 
 === WebApp Nutzer anlegen
-
 - Unter http://localhost:80/ in der Webapp anmelden und einen neuen Benutzer registrieren
 
 - In der Keycloak Adminoberfläche unter Users -> View all users -> neuen Nutzer editieren -> Role Mapping -> Alle Rollen zuweisen
 - In der Keycloak Adminoberfläche unter Users -> View all users -> neuen Nutzer editieren -> Email Verified = ON -> Save (Not working sometimes, try pgadmin/adminer way below or wait some time (after relogging) in the webapp for the user settings to update)
 UND
-> - Unter http://localhost:5050/ in pgAdmin einen neuen Server hinzufügen (Check IP des Postgres-Containers per Docker inspect -> Netzwerk db-net), Adresse, Benutzer und Password lauten postgres
+> - Unter http://localhost:5050/ in pgAdmin einen neuen Server hinzufügen (Check IP des Postgres-Containers per Docker inspect -> Netzwerk db-net => `docker network inspect portal_docker_db-net`), Adresse, Benutzer und Password lauten im Default: postgres
 > - In der Postgres db unter dem Schema "num" in der Tabelle "user_details" ein update script erstellen und damit von dem neuen Nutzer den approved status auf true setzen `UPDATE num.user_details SET approved=true;`
 
 - In der Webapp neu anmelden
+
+=== SSL for WebApp
+- WebApp hat einen NGINX mit drin.
+    - NGINX im Container finden
+        - location-file als Volume einbinden
+        - im location file ein Zertifikat für die Domain (aka https://c100-099.cloud.gwdg.de) einbinden
+        - Cert-File als Volume einbinden
+- WebApp dann unter https://https://c100-099.cloud.gwdg.de (keycloak ist auch SSL gesichert mit self-signed cert)
+    - Dann nur noch num-portal auf https umstellen?
+        - Behebt dann den same-site cookie-Fehler, bei dem die Auth-Cookies derzeit verworfen werden, weil eine Partei unsicherer ist als die andere.
+
+===
+
 - Fertig!
 
 === Datei: compose.yml (Beispiel-Passwörter)

@@ -7,15 +7,18 @@ services:
       - "8080"
     networks:
       - ehrbase-net
-    env_file:
-      - ./ehrbase_docker/.env.ehrbase
     environment:
-      DB_URL: jdbc:postgresql://ehrdb:5432/ehrbase
-      SYSTEM_NAME: local.ehrbase.org
-      SECURITY_AUTHTYPE: BASIC
-      SYSTEM_ALLOW_TEMPLATE_OVERWRITE: true
-      ADMIN_API_ACTIVE: true
-      #Find Passwords in .env-File (DB_USER, DB_PASS, SECURITY_AUTHUSER, SECURITY_AUTHPASSWORD, SECURITY_AUTHADMINUSER, SECURITY_AUTHADMINPASSWORD).
+      - DB_URL=jdbc:postgresql://ehrdb:5432/ehrbase
+      - DB_USER=${DB_USER}
+      - DB_PASS=${DB_PASS}
+      - SYSTEM_NAME=local.ehrbase.org
+      - SECURITY_AUTHTYPE=BASIC
+      - SECURITY_AUTHUSER=${SECURITY_AUTHUSER}
+      - SECURITY_AUTHPASSWORD=${SECURITY_AUTHPASSWORD}
+      - SECURITY_AUTHADMINUSER=${SECURITY_AUTHADMINUSER}
+      - SECURITY_AUTHADMINPASSWORD=${SECURITY_AUTHADMINPASSWORD}
+      - SYSTEM_ALLOW_TEMPLATE_OVERWRITE=true
+      - ADMIN_API_ACTIVE=true
     restart: always
     depends_on:
       - ehrdb
@@ -62,10 +65,11 @@ services:
       - ehrbase-net
     volumes:
       - ./ehrbase_docker/.pgdata:/var/lib/postgresql/data
-    env_file:
-      - ./ehrbase_docker/.env.ehrdb
-    #environment:
-      #Find Passwords in .env-File (POSTGRES_USER, POSTGRES_PASSWORD, EHRBASE_USER, EHRBASE_PASSWORD).
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - EHRBASE_USER=${EHRBASE_USER}
+      - EHRBASE_PASSWORD=${EHRBASE_PASSWORD}
     restart: always
 
 networks:
