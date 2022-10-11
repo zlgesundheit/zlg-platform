@@ -11,7 +11,7 @@ services:
         - KEYCLOAK_USER=${KEYCLOAK_USER}
         - KEYCLOAK_PASSWORD=${KEYCLOAK_PASSWORD}
         #- DB_VENDOR=h2
-        - KC_DB_ADDR=postgres:5432
+        - DB_ADDR=postgres:5432
         - DB_DATABASE=postgres
         - DB_USER=${POSTGRES_USER}
         - DB_PASSWORD=${POSTGRES_PASSWORD}
@@ -70,7 +70,8 @@ services:
     environment:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     volumes:
-      - ./.pgdata:/var/lib/postgresql/data
+      #- ./.pgdata:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data
     networks:
       - ehrbase-net
       - db-net
