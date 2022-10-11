@@ -5,3 +5,4 @@ portal_docker/.pgdata/
 portal_docker/.env
 ehrbase_docker/.env
 portal_docker/sql/01-ehrbase-cloud-db-setup.sql
+portal_docker/cert
