@@ -17,7 +17,10 @@ services:
         - DB_PASSWORD=${POSTGRES_PASSWORD}
       networks:
         - ehrbase-net
+      expose:
+        - "8080"
       ports:
+        #- 8180:8080
         - 8443:8443
       restart: on-failure
 
@@ -38,13 +41,15 @@ services:
       - DATABASE_NAME=postgres
       - DATABASE_USERNAME=${POSTGRES_USER}
       - DATABASE_PASSWORD=${POSTGRES_PASSWORD}
-      - KEYCLOAK_ENDPOINT=http://portal-keycloak:8080
+      - KEYCLOAK_ENDPOINT=http://portal-keycloak:8080 #Schicken von Daten an Backend (KC Auth)
       - KEYCLOAK_REALM=crr
       - KEYCLOAK_CLIENT_ID=num-portal
       - KEYCLOAK_CLIENT_SECRET=${KEYCLOAK_CLIENT_SECRET}
-      - KEYCLOAK_CANONICAL_URL=https://141.5.100.99:8443 #8443 oder 8080
+      - KEYCLOAK_CANONICAL_URL=https://141.5.100.99:8443 #Abruf Daten vom Portal (KC Auth)
       - EHRBASE_ENDPOINT=http://portal-ehrbase:8080
-      - EHRBASE_USER=${SECURITY_AUTHADMINUSER}
+      #- EHRBASE_USER=${SECURITY_AUTHUSER}
+      #- EHRBASE_PASSWORD=${SECURITY_AUTHPASSWORD}
+      - EHRBASE_USER=${SECURITY_AUTHADMINUSER}  # Test with normal-user result = bad
       - EHRBASE_PASSWORD=${SECURITY_AUTHADMINPASSWORD}
       - ATNA_ENABLED=false
       - ATNA_HOST=localhost
@@ -61,7 +66,6 @@ services:
       - 8090:8090
     networks:
       - ehrbase-net
-      - db-net
     depends_on:
       - postgres
 
@@ -74,12 +78,11 @@ services:
       - postgres_data:/var/lib/postgresql/data
     networks:
       - ehrbase-net
-      - db-net
     ports:
       - 5432:5432
 
   portal-ehrbase:
-    image: ehrbase/ehrbase:next
+    image: ehrbase/ehrbase:latest #0.18.3 #latest
     ports:
       - 8080:8080
     networks:
@@ -89,11 +92,14 @@ services:
       - DB_USER=${EB_DB_USER}
       - DB_PASS=${EB_DB_PASS}
       - SERVER_NODENAME=local.ehrbase.org
+      #- SYSTEM_NAME=local.ehrbase.org
       - SECURITY_AUTHTYPE=BASIC
       - SECURITY_AUTHUSER=${SECURITY_AUTHUSER}
       - SECURITY_AUTHPASSWORD=${SECURITY_AUTHPASSWORD}
       - SECURITY_AUTHADMINUSER=${SECURITY_AUTHADMINUSER}
       - SECURITY_AUTHADMINPASSWORD=${SECURITY_AUTHADMINPASSWORD}
+      - SYSTEM_ALLOW_TEMPLATE_OVERWRITE=true
+      - ADMIN_API_ACTIVE=true
       - MANAGEMENT_ENDPOINTS_WEB_EXPOSURE=env,health,info,metrics,prometheus
       - MANAGEMENT_ENDPOINTS_WEB_BASEPATH=/management
       - MANAGEMENT_ENDPOINT_ENV_ENABLED=false
@@ -103,6 +109,8 @@ services:
       - MANAGEMENT_ENDPOINT_METRICS_ENABLED=false
       - MANAGEMENT_ENDPOINT_PROMETHEUS_ENABLED=false
       - MANAGEMENT_ENDPOINT_HEALTH_PROBES_ENABLED=false
+      #- SERVER_DISABLESTRICTVALIDATION=false
+      #- AQLCONFIGUSEJSQUERY=false
     depends_on:
       - postgres
     restart: on-failure
@@ -112,7 +120,7 @@ services:
     image: adminer
     restart: always
     networks:
-        - db-net
+        - ehrbase-net
     ports:
         - 5050:8080
 
@@ -124,10 +132,9 @@ services:
   #     PGADMIN_DEFAULT_EMAIL: admin@admin.de
   #     PGADMIN_DEFAULT_PASSWORD: admin
   #   networks:
-  #       - db-net
+  #       - ehrbase-net
   #   ports:
   #       - 5050:80
 
 networks:
   ehrbase-net: {}
-  db-net: {}

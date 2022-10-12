@@ -50,6 +50,7 @@ Für die Ehrbase muss vorher ein Benutzer und weiteres erstellt werden, die nach
   - Restart Server
   - Note: in config.deploy.json of the webapp the address is set with http:...:8080 --> About https+kc -> https://stackoverflow.com/questions/49859066/keycloak-docker-https-required --> Migrate the whole site (141.5.100.99) to https so cookies can be shared between same-site applications (see https://web.dev/same-site-same-origin/) 
   - TEST: Set opera://flags/#same-site-by-default-cookies to enabled-same-site-support
+- Bei einem Neustart der Container MUSS im Browser der KeyCloak aufgerufen werden und das unsichere Zertifikat bestätigt werden. Das wird für die webapp gespeichert, sodass diese danach das zertifikat des keycloak akzzeptiert. (Später kommt ein NGINX-Proxy vor das ganze. Sodass alles sicher und schön ist.)
 
 === NUM Webapp starten --> Inzwischen gedockert, siehe unten
 - Git repo der WebApp klonen
@@ -387,4 +388,14 @@ END IF;
 RETURN OLD;
 END;
 $$ LANGUAGE plpgsql;
+```
+
+Problem: Speichern von AQL in EHRBASE
+```
+portal-ehrbase_1   | 2022-10-11T09:57:06.278427605Z org.ehrbase.api.exception.InternalServerException: Access database using Jooq; SQL [insert into "ehr"."stored_query" ("reverse_domain_name", "semantic_id", "query_text", "creation_date", "type") values (?, ?, ?, cast(? as timestamp(6)), ?) returning "ehr"."stored_query"."reverse_domain_name", "ehr"."stored_query"."semantic_id", "ehr"."stored_query"."semver"]; ERROR: new row for relation "stored_query" violates check constraint "stored_query_reverse_domain_name_check"
+portal-ehrbase_1   | 2022-10-11T09:57:06.278433845Z   Detail: Failing row contains (composition, test{, 0.0.0, SELECT
+portal-ehrbase_1   | 2022-10-11T09:57:06.278438185Z   c0/context/other_context[at0003]/items[at0004]/value as..., 2022-10-11 09:57:06.273, AQL).; nested exception is org.postgresql.util.PSQLException: ERROR: new row for relation "stored_query" violates check constraint "stored_query_reverse_domain_name_check"
+portal-ehrbase_1   | 2022-10-11T09:57:06.278452495Z   Detail: Failing row contains (composition, test{, 0.0.0, SELECT
+portal-ehrbase_1   | 2022-10-11T09:57:06.278456715Z   c0/context/other_context[at0003]/items[at0004]/value as..., 2022-10-11 09:57:06.273, AQL).
+portal-ehrbase_1   | 2022-10-11T09:57:06.278460625Z     at org.ehrbase.service.QueryServiceImp.createStoredQuery(QueryServiceImp.java:232)
 ```
