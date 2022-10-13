@@ -11,7 +11,7 @@
   - [Modelling and Reviews](./documentation/platform/openehr_details/modelling_and_reviews.md)
 
 # Technische Details
-- [Platform-Architecture-WIP](./documentation/platform/architecture.md)  
+- [Platform-Architecture](./documentation/platform/architecture.md)  
 - [Platform-Security](./documentation/platform/platform_security.md) 
   specification_and_community.md)
 - [OpenEHR-Repository](./documentation/platform/openehr_repository.md)
