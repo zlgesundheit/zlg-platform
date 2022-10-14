@@ -38,7 +38,7 @@ Für die Ehrbase muss vorher ein Benutzer und weiteres erstellt werden, die nach
     - **Clients -> num-Portal -> Credentials -> Regenerate Secret**
 - Das neu generierte Secret in die yml-Datei unter 
 `KEYCLOAK_CLIENT_SECRET:` eintragen
-- Die externe IP des Keycloak-Servers angeben: `KEYCLOAK_CANONICAL_URL: http://141.5.100.99:8443` (oder 8080)
+- Die externe IP des Keycloak-Servers angeben: `KEYCLOAK_CANONICAL_URL: https://141.5.100.99:8443` (oder 8080)
   - NUM-Portal container NEUERSTELLEN, damit neue Umgebungsvariablen geladen werden (`docker-compose up -d num-portal`)
 
 - Falls ein HTTPS-Fehler auftritt:  

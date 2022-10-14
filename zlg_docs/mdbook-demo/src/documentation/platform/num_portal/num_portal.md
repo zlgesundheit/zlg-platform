@@ -26,3 +26,6 @@ The following components are part of the num platform:
 
 ## Setup of the NUM Portal
 For explanation and examples on how to setup a NUM Portal for your platform instance see the next pages.
+
+---
+[![Creative Commons Attribution-ShareAlike 4.0 International License](https://i.creativecommons.org/l/by-sa/4.0/88x31.png "Creative Commons Attribution-ShareAlike 4.0 International License")](http://creativecommons.org/licenses/by-sa/4.0/)
