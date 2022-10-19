@@ -6,38 +6,49 @@ volumes:
 
 services:
   portal-keycloak: 
-      image: jboss/keycloak:latest
-      environment:
-        - KEYCLOAK_USER=${KEYCLOAK_USER}
-        - KEYCLOAK_PASSWORD=${KEYCLOAK_PASSWORD}
-        #- DB_VENDOR=h2
-        - DB_ADDR=postgres:5432
-        - DB_DATABASE=postgres
-        - DB_USER=${POSTGRES_USER}
-        - DB_PASSWORD=${POSTGRES_PASSWORD}
-      networks:
-        - ehrbase-net
-      expose:
-        - "8080"
-      ports:
-        #- 8180:8080
-        - 8443:8443
-      restart: on-failure
+    image: jboss/keycloak:latest
+    environment:
+      - KEYCLOAK_USER=${KEYCLOAK_USER}
+      - KEYCLOAK_PASSWORD=${KEYCLOAK_PASSWORD}
+      - DB_ADDR=postgres:5432
+      - DB_DATABASE=postgres
+      - DB_USER=${POSTGRES_USER}
+      - DB_PASSWORD=${POSTGRES_PASSWORD}
+      - KEYCLOAK_IMPORT=/tmp/keycloak-dump.json
+      - JAVA_OPTS=-server -Xms1024m -Xmx1024m 
+      - PROXY_ADDRESS_FORWARDING=true  #important for reverse proxy 
+      #- KEYCLOAK_FRONTEND_URL=https://c100-099.cloud.gwdg.de/auth
+    volumes:
+      - ./keycloak/keycloak-dump.json:/tmp/keycloak-dump.json
+    networks:
+      - ehrbase-net
+      - num-net
+    expose:
+      - "8080"
+      - "8443"
+    #ports:
+      #- 8070:8080
+      #- 8443:8443
+    restart: on-failure
 
   num-webapp:
-      #image: docker.gitlab.gwdg.de/medinf/kvf/kardio/dzhk/cofoni/num-portal-webapp:1.8.0-dev-808cf071
-      image: numresearchdataplatform/num-portal-webapp:1.9.0
-      volumes:
-        - ./config.deploy.json:/usr/share/nginx/html/assets/config/config.deploy.json
-      ports:
-        - 80:80
+    #image: docker.gitlab.gwdg.de/medinf/kvf/kardio/dzhk/cofoni/num-portal-webapp:1.8.0-dev-808cf071
+    image: numresearchdataplatform/num-portal-webapp:1.9.0
+    networks:
+      - num-net
+    volumes:
+      - ./config.deploy.json:/usr/share/nginx/html/assets/config/config.deploy.json
+    expose:
+      - "80"
+    #ports:
+    #  - 80:80
      
   num-portal:
     #image: docker.gitlab.gwdg.de/medinf/kvf/kardio/dzhk/cofoni/num-portal:1.8.0-dev-d63c2f21
     image: numresearchdataplatform/num-portal:1.9.0
     environment:
       - SPRING_PROFILES_ACTIVE=deploy
-      - DATABASE_SERVER=postgres:5432
+      - DATABASE_SERVER=postgres:5432 #postgres:5432
       - DATABASE_NAME=postgres
       - DATABASE_USERNAME=${POSTGRES_USER}
       - DATABASE_PASSWORD=${POSTGRES_PASSWORD}
@@ -45,7 +56,7 @@ services:
       - KEYCLOAK_REALM=crr
       - KEYCLOAK_CLIENT_ID=num-portal
       - KEYCLOAK_CLIENT_SECRET=${KEYCLOAK_CLIENT_SECRET}
-      - KEYCLOAK_CANONICAL_URL=https://141.5.100.99:8443 #Abruf Daten vom Portal (KC Auth)
+      - KEYCLOAK_CANONICAL_URL=https://portal-keycloak:8443 #Abruf Daten vom Portal (KC Auth) # c100-099.cloud.gwdg.de # https://141.5.100.99:8443
       - EHRBASE_ENDPOINT=http://portal-ehrbase:8080
       #- EHRBASE_USER=${SECURITY_AUTHUSER}
       #- EHRBASE_PASSWORD=${SECURITY_AUTHPASSWORD}
@@ -62,12 +73,16 @@ services:
       - SWAGGER_OAUTH2_CLIENT-NAME=num-portal-webapp
       - PRIVACY_MIN_HITS=5
       - PSEUDONYMITY_SECRET=${PSEUDONYMITY_SECRET}
-    ports:
-      - 8090:8090
+    expose:
+      - "8090"
+    #ports:
+    #  - 8090:8090
     networks:
       - ehrbase-net
+      - num-net
     depends_on:
       - postgres
+    restart: always
 
   postgres:
     image: postgres
@@ -78,15 +93,21 @@ services:
       - postgres_data:/var/lib/postgresql/data
     networks:
       - ehrbase-net
-    ports:
-      - 5432:5432
+      - num-net
+    expose:
+      - "5432"
+    #ports:
+    #  - 5432:5432
 
   portal-ehrbase:
     image: ehrbase/ehrbase:latest #0.18.3 #latest
-    ports:
-      - 8080:8080
+    expose:
+      - "8080"
+    #orts:
+    #  - 8080:8080
     networks:
       - ehrbase-net
+      - num-net
     environment:
       - DB_URL=jdbc:postgresql://postgres:5432/ehrbase
       - DB_USER=${EB_DB_USER}
@@ -121,8 +142,11 @@ services:
     restart: always
     networks:
         - ehrbase-net
-    ports:
-        - 5050:8080
+        - num-net
+    expose:
+      - "8080"
+    ports:  #Open Port to access DB from outside - only for setup
+      - 5050:8080
 
   # portal-pgadmin:
   #   container_name: pgadmin4
@@ -136,5 +160,34 @@ services:
   #   ports:
   #       - 5050:80
 
+  nginx:
+    image: nginx
+    container_name: nginx
+    ports:
+      - 80:80
+      - 443:443
+    networks:
+      - ehrbase-net
+      - num-net
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+      - nginx_html:/etc/nginx/html  # hinzugefuegt
+    restart: unless-stopped
+
+  certbot:
+    image: certbot/certbot
+    container_name: certbot
+    volumes: 
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+    command: certonly --webroot -w /var/www/certbot --force-renewal --email jendrik.richter@med.uni-goettingen.de -d c100-099.cloud.gwdg.de --agree-tos
+
+volumes:
+  nginx_html:
+  postgres_data:
+
 networks:
   ehrbase-net: {}
+  num-net: {}
