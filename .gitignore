@@ -1,5 +1,6 @@
 ehrbase_docker/.pgdata/
 certbot/conf/
+certbot
 portal_docker/.pgdata/
 .env
 portal_docker/.env

@@ -17,6 +17,18 @@ Tools
 
 For the data import tool "FLAT_Loader" see [this repo of the FLAT_Loader](https://gitlab.gwdg.de/medinfpub/openehr_flat_loader).
 
+## Startup
+
+## Start all containers
+
+### Init DB
+`docker cp ./portal_docker/sql/01-ehrbase-cloud-db-setup.sql zlg-platform_postgres_1:/docker-entrypoint-initdb.d/dump.sql`
+`docker exec -u postgres zlg-platform_postgres_1 psql postgres postgres -f docker-entrypoint-initdb.d/dump.sql`
+
+### Alter Domain-Settings
+Change Domain and Mail adress in certbot command to your Domain .
+Change Domain in nginx.conf to your Domain.
+
 ## (External) Documentation
 - [openEHR-Specification](https://specifications.openehr.org)
 - [openEHR REST API-Documentation](https://specifications.openehr.org/releases/ITS-REST/Release-1.0.0/ehr.html)
