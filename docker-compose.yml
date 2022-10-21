@@ -1,16 +1,36 @@
 version: '3'
 
 services:
-  mdbook:
-    image: hillliu/mdbook
-    command: ["serve", "-p", "5000", "-n", "0.0.0.0"]
+  #mdbook:
+  #  image: hillliu/mdbook
+  #  command: ["serve", "-d","/zlg", "-p", "5000", "-n", "0.0.0.0"]
+  #  environment:
+  #    - MDBOOK_BOOK__SITEURL="zlg"
+  #  networks:
+  #    - docs-net
+  #  volumes:
+  #    - "${SRC:-./zlg_docs/mdbook-demo}:/mdbook" 
+  #    - "${DEST:-./zlg_docs/build/book}:/mdbook/book" 
+  #  expose:
+  #    - "5000"
+  #    - "5001"
+
+  docs:
+    image: awesometic/docusaurus:latest
+    command: ["serve", "--host", "0.0.0.0"]
+    environment:
+      - AUTO_UPDATE=false
+      - WEBSITE_NAME=zlg_docs
+      - TEMPLATE=classic
+      - TARGET_UID=1000
+      - TARGET_GID=1000
+    volumes:
+      - ./docs:/docusaurus
     networks:
       - docs-net
-    volumes:
-      - "${SRC:-./zlg_docs/mdbook-demo}:/mdbook" 
-      - "${DEST:-./zlg_docs/build/book}:/mdbook/book" 
     expose:
-      - "5000"
+      - "80"
+    restart: always
 
   portal-keycloak: 
     image: jboss/keycloak:latest
@@ -43,6 +63,7 @@ services:
       - ./portal_docker/config.deploy.json:/usr/share/nginx/html/assets/config/config.deploy.json
     expose:
       - "80"
+    restart: always
      
   num-portal:
     #image: docker.gitlab.gwdg.de/medinf/kvf/kardio/dzhk/cofoni/num-portal:1.8.0-dev-d63c2f21
@@ -95,6 +116,7 @@ services:
       - "5432"
     #ports:     #useful for setup
     #  - 5432:5432
+    restart: always
 
   portal-ehrbase:
     image: ehrbase/ehrbase:latest #0.18.3 #latest
@@ -182,6 +204,7 @@ services:
 volumes:
   nginx_html:
   postgres_data:
+  docusaurus_src:
 
 networks:
   ehrbase-net: {}

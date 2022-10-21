@@ -17,17 +17,54 @@ Tools
 
 For the data import tool "FLAT_Loader" see [this repo of the FLAT_Loader](https://gitlab.gwdg.de/medinfpub/openehr_flat_loader).
 
+## Documentation
+
+Documentation as [mdbook](https://c100-115.cloud.gwdg.de/documentation/context/home.html)
+
 ## Startup
 
-## Start all containers
-
-### Init DB
-`docker cp ./portal_docker/sql/01-ehrbase-cloud-db-setup.sql zlg-platform_postgres_1:/docker-entrypoint-initdb.d/dump.sql`
-`docker exec -u postgres zlg-platform_postgres_1 psql postgres postgres -f docker-entrypoint-initdb.d/dump.sql`
+### Create SSL-Cert (once at first start)
+- `cp ./nginx/before-cert-creation ./nginx/nginx.conf`
+- Change Domain in nginx.conf to your Domain.
+- `docker-compose up -d`
+- `cp ./nginx/after-cert-creation ./nginx/nginx.conf`
+- Change Domain in nginx.conf to your Domain.
+- `docker-compose up -d --force-recreate nginx`
 
 ### Alter Domain-Settings
-Change Domain and Mail adress in certbot command to your Domain .
-Change Domain in nginx.conf to your Domain.
+- Change Domains in config.deploy.json
+- Change Domain and Mail adress in certbot command to your Domain.  
+
+### Alter Domain-Settings in Docs
+- Change Domain-Occurences and other relevant linkings (e.g. Gitlab Repo) to match your own Setting.
+    - Edit ./docs/zlg-docs/docusaurus.config.js
+
+## Start all containers
+- Define passwords in .env file 
+- `docker-compose up -d`
+
+### Init DB
+- Set password in "./portal_docker/sql/01-ehrbase-cloud-db-setup.sql" according to "EB_DB_PASS" in .env file.
+- `docker cp ./portal_docker/sql/01-ehrbase-cloud-db-setup.sql zlg-platform_postgres_1:/docker-entrypoint-initdb.d/dump.sql`
+- `docker exec -u postgres zlg-platform_postgres_1 psql postgres postgres -f docker-entrypoint-initdb.d/dump.sql`
+
+### Setup backend-auth
+- Visit Keycloak Endpoint at https://DOMAIN/auth
+- Generate new secret via **Clients -> num-Portal -> Credentials -> Regenerate Secret**
+- Copy Secret in Keycloak and set ${KEYCLOAK_CLIENT_SECRET} in docker-compose.yml
+- Recreate num-portal container: `docker-compose up -d --force-recreate num-portal`
+
+### Setup First User
+- Visit Frontend on https://DOMAIN/home
+- CLick on Login and register a new user at the keycloak
+- Visit keycloak admin interface at https://DOMAIN/auth
+    - Go to Users -> View all users -> Edit -> Role Mapping -> Assign all roles
+    - Go to Users -> View all users -> Edit -> Email Verified = ON -> Save
+- Re-log in the Frontend
+- Enter the database under schema "num" and in table "user_details" set the user to approved (identified by same id like in keycloak)
+    - e.g. expose port of adminer/pg_admin and login to the DB
+- Re-log in the Frontend 
+- **You should have all rights in the portal now** 
 
 ## (External) Documentation
 - [openEHR-Specification](https://specifications.openehr.org)
