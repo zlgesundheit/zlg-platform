@@ -15,8 +15,7 @@ This requirements identification process led to a set of core requirements and r
 
 For the first phase of the platform integration, the goal was to setup the core of the platform while allowing for later adaption and extension. The long-version of the concept explains this and more in greater detail while also giving an intro to openEHR and the different components that need to be present in the platform.
 
-See concept document:
-- [PDF: Concept - Long Version (german)](https://owncloud.gwdg.de/index.php/s/0JYgg19e13NrKoU)
+See concept document [PDF: Concept - Long Version (german)](https://owncloud.gwdg.de/index.php/s/0JYgg19e13NrKoU) online or [download it as PDF](https://c100-099.cloud.gwdg.de/docs/assets/TA1.4.2_ZLG_Konzept_Langversion.pdf) directly.
 
 ### Features
 
