@@ -5,7 +5,7 @@ sidebar_position: 1
 
 # Plain Python ETL
 
-Using the GUI + SQL-Query Variant (see [HAMSTR-ETL-Builder](../etl_tools/hamstr_loader.md)) or the Mapping in an Excel-File (see [FLAT_Loader](../etl_tools/flat_loader.md)) is an intersting way to let persons supply mapping information and to automate the composition building process.
+Using the GUI + SQL-Query Variant (see [HAMSTR-ETL-Builder](../hamstr_loader.md)) or the Mapping in an Excel-File (see [FLAT_Loader](../flat_loader/flat_loader.md)) is an intersting way to let persons supply mapping information and to automate the composition building process.
 
 Nevertheless sometimes it is nice to straight forward build FLAT-Compositions without much overhead. The following lays out an easy way to build those.  
 
@@ -42,7 +42,7 @@ For more Information about the FLAT-Format see [EHRBase Documentation about FLAT
 ```
 ## Code Example
 
-For a code example see the [next page](./plain_python_etl/example.md).
+For a code example see the [next page](./example.md).
 
 ---
 [![Creative Commons Attribution-ShareAlike 4.0 International License](https://i.creativecommons.org/l/by-sa/4.0/88x31.png "Creative Commons Attribution-ShareAlike 4.0 International License")](http://creativecommons.org/licenses/by-sa/4.0/)

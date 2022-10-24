@@ -8,7 +8,7 @@ _(engl. Future Lab Health)_
 
 ## About the Zukunftslabor
 The **Zukunftslabor Gesundheit (ZLG)** is a joint project within the umbrella organiztaion 
-**Zentrum für digitale Innovationen Niedersachsen (ZDIN)**. The lab consists of three _"part projects"_ in which the scientific employess of all [partner organizations](../misc/partners.md) engage in exciting and highly relevant research.
+**Zentrum für digitale Innovationen Niedersachsen (ZDIN)**. The lab consists of three _"part projects"_ in which the scientific employess of all [partner organizations](./misc/partners.md) engage in exciting and highly relevant research.
 
 On the following pages you will find **context information about the project** as well as a **comprehensive guide** on when and how to use the OpenEHR **Tools to establish (or communicate with) a ZLG Reserach Data Platform**.
 

@@ -98,7 +98,7 @@ Once started the EHRBase Repository takes REST-Calls defined in the [openEHR RES
 
 With the Header "Prefer: return={representation|minimal}" the server will return the representation of the resource and will i.e return the ehr_id of a created EHR.
 
-See more info about communicating with the openEHR Repo in the ETL-Tools Section under "[REST Calls and Postman](./etl_tools/rest_calls.md)".
+See more info about communicating with the openEHR Repo in the ETL-Tools Section under "[REST Calls and Postman](../etl_tools/rest_calls/rest_calls.md)".
 
 ---
 [![Creative Commons Attribution-ShareAlike 4.0 International License](https://i.creativecommons.org/l/by-sa/4.0/88x31.png "Creative Commons Attribution-ShareAlike 4.0 International License")](http://creativecommons.org/licenses/by-sa/4.0/)

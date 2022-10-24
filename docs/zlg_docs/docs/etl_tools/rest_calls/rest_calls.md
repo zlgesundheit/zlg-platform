@@ -12,9 +12,9 @@ Postman is one representative of available API-Platform Tools. It allows for the
 In the context of openEHR we can use Postman or similar tools to communicate with the API of the openEHR-Repository. This comes in handy to upload Templates, upload small sets of compositions, manipulate existing entries, query existing resources or test and develop software meant to work with an openEHR-Repository.
 
 On the following pages we cover how to:
-- [Upload one Template](./rest_calls/upload_template.md)
-- [Create one EHR](./rest_calls/create_ehr.md)
-- [Upload one Composition](./rest_calls/upload_compositions.md)
+- [Upload one Template](./upload_template.md)
+- [Create one EHR](./create_ehr.md)
+- [Upload one Composition](./upload_compositions.md)
 
 The other tools presented in this section are all supporting you in communicating with the platform.
 
