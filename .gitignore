@@ -7,5 +7,6 @@ portal_docker/.env
 ehrbase_docker/.env
 portal_docker/sql/01-ehrbase-cloud-db-setup.sql
 portal_docker/cert
-docs/zlg_docs/supervisord.log
-docs/zlg_docs/supervisord.pid
+docs/supervisord.log
+docs/supervisord.pid
+docs/website
