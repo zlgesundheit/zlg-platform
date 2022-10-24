@@ -24,11 +24,12 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
           // Please change this to your repo.
           //editUrl: 'https://gitlab.gwdg.de/medinf/ivf/zukunftslabor-gesundheit/zlg-platform',
         },
+        /** 
         blog: {
           showReadingTime: true,
           // Please change this to your repo.
           //editUrl: 'https://gitlab.gwdg.de/medinf/ivf/zukunftslabor-gesundheit/zlg-platform',
-        },
+        }, */
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
         },
@@ -52,7 +53,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
             position: 'left',
             label: 'Documentation',
           },
-          {to: '/blog', label: 'Blog', position: 'left'},
+          //{to: '/blog', label: 'Blog', position: 'left'},
           {
             href: 'https://gitlab.gwdg.de/medinf/ivf/zukunftslabor-gesundheit/zlg-platform',
             label: 'GitLab',
@@ -92,10 +93,10 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
           {
             title: 'More',
             items: [
-              {
-                label: 'Blog',
-                to: '/blog',
-              },
+              //{
+              //  label: 'Blog',
+              //  to: '/blog',
+              //},
               {
                 label: 'ZDIN',
                 href: 'https://https://www.zdin.de',
