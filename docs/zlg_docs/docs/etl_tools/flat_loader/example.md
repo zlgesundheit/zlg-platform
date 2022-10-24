@@ -36,7 +36,7 @@ Example of a [CSV-File](https://gitlab.gwdg.de/medinfpub/openehr_flat_loader/-/b
 When working with medical data (this includes transforming or uploading the data to some repository) make sure you act wihthin the consent that is connected with the data and make sure you have all rights to upload the data and inform yourself about the safety and acccessability of the network you are communicating in.
 
 ## Creating a Mapping, Building Resources and Uploading Compositions
-The general process has been already shown in the [BPMN-Process Figure](../flat_loader.md#tool-usage-steps). 
+The general process has been already shown in the [BPMN-Process Figure](./flat_loader.md#tool-usage-steps). 
 
 See the following example to test the tool yourself:
 

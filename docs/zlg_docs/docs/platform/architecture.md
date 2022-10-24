@@ -36,7 +36,7 @@ The platform is based on openEHR. Therefore the data needs to be represented by 
 ![Nutzungsprozess Modellierung](/img/1_nutzungsprozess_modellierung.png)
 
 ### Data Import
-The data import is performed using the open API of the openEHR-Standard. Resources can be send to and API endpoint and will be consumed by the server. Building these resources is supported by different tools and libraries ([openEHR_SDK](https://github.com/ehrbase/openEHR_SDK), [ZLG FLAT_Loader](./etl_tools/flat_loader.md), [Better CSV-Import](./etl_tools/better-import.md), [HaMSTR_Loader](./etl_tools/hamstr_loader.md))
+The data import is performed using the open API of the openEHR-Standard. Resources can be send to and API endpoint and will be consumed by the server. Building these resources is supported by different tools and libraries ([openEHR_SDK](https://github.com/ehrbase/openEHR_SDK), [ZLG FLAT_Loader](./etl_tools/flat_loader/flat_loader.md), [Better CSV-Import](./etl_tools/better-import.md), [HaMSTR_Loader](./etl_tools/hamstr_loader.md))
 
 ![Nutzungsprozess Datenimport](/img/2_nutzungsprozess_datenimport.png)
 
