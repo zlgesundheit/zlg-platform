@@ -99,7 +99,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
               //},
               {
                 label: 'ZDIN',
-                href: 'https://https://www.zdin.de',
+                href: 'https://www.zdin.de',
               },
               {
                 label: 'Imprint',
