@@ -29,5 +29,7 @@ In the following years (years 3 - 5), the validation or evaluation with subseque
 ## Funding
 This research was funded by Lower Saxony Ministry of Science and Culture under grantnumber ZN3491 within the Lower Saxony “Vorab” of the Volkswagen Foundation and supported bythe Center for Digital Innovations (ZDIN).  
 
+![ZDIN ZLG Logo](/img/ZL-G_LOGO.png)
+
 ---
 [![Creative Commons Attribution-ShareAlike 4.0 International License](https://i.creativecommons.org/l/by-sa/4.0/88x31.png "Creative Commons Attribution-ShareAlike 4.0 International License")](http://creativecommons.org/licenses/by-sa/4.0/)
