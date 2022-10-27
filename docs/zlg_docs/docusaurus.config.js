@@ -30,6 +30,9 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
           // Please change this to your repo.
           //editUrl: 'https://gitlab.gwdg.de/medinf/ivf/zukunftslabor-gesundheit/zlg-platform',
         }, */
+        downloads: {
+            sidebarPath: require.resolve('./sidebars.js'),
+        },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
         },
@@ -52,8 +55,12 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
             docId: 'home',
             position: 'left',
             label: 'Documentation',
+          }, 
+          {
+            href: '/docs/downloads',
+            label: 'Downloads',
+            position: 'left',
           },
-          //{to: '/blog', label: 'Blog', position: 'left'},
           {
             href: 'https://gitlab.gwdg.de/medinf/ivf/zukunftslabor-gesundheit/zlg-platform',
             label: 'GitLab',
@@ -103,7 +110,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
               },
               {
                 label: 'Imprint',
-                href: '/docs/docs/misc/imprint'
+                href: '/docs/docs/imprint'
               }
             ],
           },
