@@ -19,31 +19,31 @@ For the data import tool "FLAT_Loader" see [this repo of the FLAT_Loader](https:
 
 ## Documentation
 
-Documentation as [mdbook](https://c100-115.cloud.gwdg.de/documentation/context/home.html)
+Documentation at [docusaurus](https://c100-115.cloud.gwdg.de/docs/)
 
 ## Startup
 
-### Create SSL-Cert (once at first start)
+### Alter domain settings in nginx-conf and Create SSL-Cert (once at first start)
 - `cp ./nginx/before-cert-creation ./nginx/nginx.conf`
 - Change Domain in nginx.conf to your Domain.
 - `docker-compose up -d`
 - `cp ./nginx/after-cert-creation ./nginx/nginx.conf`
-- Change Domain in nginx.conf to your Domain.
+- Change Domain in **nginx.conf** to your Domain.
 - `docker-compose up -d --force-recreate nginx`
 
 ### Alter Domain-Settings
-- Change Domains in config.deploy.json
-- Change Domain and Mail adress in certbot command to your Domain.  
+- Change Domains in **config.deploy.json**
+- Change Domain and Mail adress in certbot command in **docker-compose.yml** to your Domain.  
 
 ### Alter Domain-Settings in Docs
 - Change Domain-Occurences and other relevant linkings (e.g. Gitlab Repo) to match your own Setting.
-    - Edit ./docs/zlg-docs/docusaurus.config.js
+    - Edit **./docs/zlg-docs/docusaurus.config.js**
 
 ## Start all containers
 - Define passwords in .env file 
 - `docker-compose up -d`
 
-### Init DB
+### Init DB for EHRBase
 - Set password in "./portal_docker/sql/01-ehrbase-cloud-db-setup.sql" according to "EB_DB_PASS" in .env file.
 - `docker cp ./portal_docker/sql/01-ehrbase-cloud-db-setup.sql zlg-platform_postgres_1:/docker-entrypoint-initdb.d/dump.sql`
 - `docker exec -u postgres zlg-platform_postgres_1 psql postgres postgres -f docker-entrypoint-initdb.d/dump.sql`
@@ -70,4 +70,4 @@ Documentation as [mdbook](https://c100-115.cloud.gwdg.de/documentation/context/h
 - [openEHR-Specification](https://specifications.openehr.org)
 - [openEHR REST API-Documentation](https://specifications.openehr.org/releases/ITS-REST/Release-1.0.0/ehr.html)
 - [EHRBase Documentation](https://ehrbase.readthedocs.io/en/latest/01_release_notes/index.html)
-- [EHRBase REST API Documentation](http://141.5.100.115/ehrbase/swagger-ui.html)
+- [EHRBase REST API Documentation](https://c100-115.cloud.gwdg.de/ehrbase/swagger-ui.html)

@@ -6,7 +6,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 (module.exports = {
   title: 'ZL-G Docs',
   tagline: 'Everything about the ZL-G Platform and Tools',
-  url: 'https://c100-099.cloud.gwdg.de.com',
+  url: 'https://c100-115.cloud.gwdg.de.com',
   baseUrl: '/docs/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
