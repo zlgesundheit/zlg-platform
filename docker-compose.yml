@@ -22,8 +22,8 @@ services:
       - AUTO_UPDATE=false
       - WEBSITE_NAME=zlg_docs
       - TEMPLATE=classic
-      - TARGET_UID=1000
-      - TARGET_GID=1000
+      - TARGET_UID=1001 #UID of user that will own the generated files on the host-system, if not found the first user in the list is choosen
+      - TARGET_GID=1001
     volumes:
       - ./docs:/docusaurus
     networks:
