@@ -35,6 +35,16 @@ After you downloaded all files and folders you have to decide which services you
 |adminer|5050 tcp|/|
 |postgres|-|-|
 
+- Locations of hard-coded domain entries (or mail-adresses)
+
+|Service|Location|Line(s)|
+|:-------:|:----:|----|
+|NUM WebApp|config.deploy.json|'api/baseUrl', 'auth/baseUrl'|
+|NGINX|nginx/nginx.conf|'server_name', 'proxy_ssl_name', 'ssl_certificate', 'ssl_certificate_key'
+|Certbot|docker-compose.yml|'command'|
+
+- Passwords are stored in .env-File (available as .env-example_rename)
+
 ---
 **3. Start the service containers**
 
@@ -115,7 +125,11 @@ After you downloaded all files and folders you have to decide which services you
 ---
 ## Setup SSL for the platform (needed to avoid CORS related errors)
 
-WIP - Work in Progress
+An SSL-Certificate can be acquired using [Certbot](https://certbot.eff.org). The needed Container is already included in the docker-compose.yml.
+
+`command: certonly --webroot -w /var/www/certbot --force-renewal --email MAIL-ADRESS -d DOMAIN --agree-tos`
+
+If you are actively setting up and testing - and therefore starting and restarting services often - you can set the '--test-cert'-Flag for testing with massively increased rate limits.
 
 ---
 [![Creative Commons Attribution-ShareAlike 4.0 International License](https://i.creativecommons.org/l/by-sa/4.0/88x31.png "Creative Commons Attribution-ShareAlike 4.0 International License")](http://creativecommons.org/licenses/by-sa/4.0/)
