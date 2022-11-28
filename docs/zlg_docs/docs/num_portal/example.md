@@ -4,25 +4,21 @@ sidebar_position: 3
 ---
 
 # Example
-
 Examples on how the NUM Portal is used. Screenshots of criteria definition, AQL searches, cohort searches, project management, user management.
 
 #### Table of contents
-
-- [Example](#example)
-      - [Table of contents](#table-of-contents)
-  - [Login / Registration](#login--registration)
-      - [For Admins](#for-admins)
-  - [Accessing data as a researcher](#accessing-data-as-a-researcher)
-    - [Cohort/Search Criteria](#cohortsearch-criteria)
-    - [Datenabruf](#datenabruf)
-      - [For Governance](#for-governance)
-  - [Creating and Managing - Projects](#creating-and-managing---projects)
-      - [For Admins](#for-admins)
-  - [Creating and Managing - News](#creating-and-managing---news)
-  - [Creating and Managing - Search Criteria](#creating-and-managing---search-criteria)
-  - [Manager-Tools - Pseudonym Resolver](#manager-tools---pseudonym-resolver)
-  - [User Roles - Short overview](#user-roles---short-overview)
+- [Login / Registration](#login--registration)
+    - [For Admins](#for-admins)
+- [Accessing data as a researcher](#accessing-data-as-a-researcher)
+- [Cohort/Search Criteria](#cohortsearch-criteria)
+- [Datenabruf](#datenabruf)
+    - [For Governance](#for-governance)
+- [Creating and Managing - Projects](#creating-and-managing---projects)
+    - [For Admins](#for-admins)
+- [Creating and Managing - News](#creating-and-managing---news)
+- [Creating and Managing - Search Criteria](#creating-and-managing---search-criteria)
+- [Manager-Tools - Pseudonym Resolver](#manager-tools---pseudonym-resolver)
+- [User Roles - Short overview](#user-roles---short-overview)
 
 ## Login / Registration
 

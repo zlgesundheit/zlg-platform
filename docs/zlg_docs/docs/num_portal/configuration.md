@@ -25,23 +25,24 @@ After you downloaded all files and folders you have to decide which services you
 
 - Manage the ports that are needed to setup the platform
 
-|Service|Port|Endpoint|
+|Service|Port (TCP)|Endpoint|
 |:-------:|:----:|--------|
-|num-portal-webapp|80 tcp|/|
-|num-portal|8090 tcp|/|
-|keycloak|8443 tcp|/auth|
-|ehrbase|8080 tcp|/ehhrbase|
-|nginx|80,443|/|
-|adminer|5050 tcp|/|
+|num-portal-webapp|`80`|/|
+|num-portal|`8090`|/|
+|keycloak|`8443`|/auth|
+|ehrbase|`8080`|/ehhrbase|
+|nginx|`80`,`443`|/|
+|adminer|`5050`|/|
 |postgres|-|-|
 
 - Locations of hard-coded domain entries (or mail-adresses)
 
 |Service|Location|Line(s)|
 |:-------:|:----:|----|
-|NUM WebApp|config.deploy.json|'api/baseUrl', 'auth/baseUrl'|
-|NGINX|nginx/nginx.conf|'server_name', 'proxy_ssl_name', 'ssl_certificate', 'ssl_certificate_key'
-|Certbot|docker-compose.yml|'command'|
+|NUM WebApp|config.deploy.json|`api/baseUrl`, `auth/baseUrl`|
+|NGINX|nginx/nginx.conf|`server_name`, `proxy_ssl_name`, `ssl_certificate`, `ssl_certificate_key`
+|Certbot|docker-compose.yml|`command`|
+|Docusaurus|/docs/zlg-docs/docusaurus.config.js|`url`|
 
 - Passwords are stored in .env-File (available as .env-example_rename)
 
@@ -129,7 +130,9 @@ An SSL-Certificate can be acquired using [Certbot](https://certbot.eff.org). The
 
 `command: certonly --webroot -w /var/www/certbot --force-renewal --email MAIL-ADRESS -d DOMAIN --agree-tos`
 
-If you are actively setting up and testing - and therefore starting and restarting services often - you can set the '--test-cert'-Flag for testing with massively increased rate limits.
+For your setup you need to change the values for `--email MAIL-ADRESS` and `-d DOMAIN`.
+
+If you are actively setting up and testing - and therefore starting and restarting services often - you can set the `--test-cert`-Flag for testing with massively increased rate limits.
 
 ---
 [![Creative Commons Attribution-ShareAlike 4.0 International License](https://i.creativecommons.org/l/by-sa/4.0/88x31.png "Creative Commons Attribution-ShareAlike 4.0 International License")](http://creativecommons.org/licenses/by-sa/4.0/)
