@@ -10,7 +10,7 @@ Examples on how the NUM Portal is used. Screenshots of criteria definition, AQL 
 - [Login / Registration](#login--registration)
     - [For Admins](#for-admins)
 - [Accessing data as a researcher](#accessing-data-as-a-researcher)
-- [Cohort/Search Criteria](#cohortsearch-criteria)
+    - [Cohort/Search Criteria](#cohortsearch-criteria)
 - [Datenabruf](#datenabruf)
     - [For Governance](#for-governance)
 - [Creating and Managing - Projects](#creating-and-managing---projects)
@@ -47,22 +47,43 @@ For the first user / admin user of the platform you need to assign those roles i
 
 ## Accessing data as a researcher
 
-### Cohort/Search Criteria
-If you are allowed to 
+To be able to search and access data you need to be assigned to a specific project that includes data / data definitions.
 
-For details see [documentation below](#creating-and-managing---search-criteria)
+## Datenabruf
 
-### Datenabruf
+Roles that are able to use search or access and export data are `Researcher` and `Manager`.
 
 Via "Datenabruf" in the sidebar you are able to access the projects that you are registered for. Click on the "Aktion"-Symbol and click on "Daten abrufen" to filter and view data and/or export it.
 
+![datenabruf_uebersicht](/img/datenabruf_uebersicht.jpg)
+
+Select your project and extract data using the following button.
+
 ![datenabruf](/img/datenabruf.jpg)
+
+In order to perform searches on the data set that belongs to your project a set of search criteria for that data set must be pre-defined. For details see [documentation below](#creating-and-managing---search-criteria)
+
+> For your own data / platform a pragmatic approach is to have users fulfilling multiple roles and therefore reduce friction by having users with more rights. For bigger projects with clear division of labor an approach with less roles per user might be feasible. 
+
+## Searching Data
+The "Suche"-Tab in the sidebar allows the uster to explore the available data sets. The number of total data sets is shown and with using filter criteria a search term can be conducted to search for patients/data sets to build a cohort.
+
+![search_tab](/img/search_tab.jpg)
+
+Depending on your user role and rights you are able to also export the data or to apply to use data in form of a project application. Which may be approved or declined based on the Governance / Use&Access procedure.
+
+## Creating and Managing - Search Criteria
+For data to be searchable and retrievable a set of search critera needs to be pre-defined.
+Users with the role "Criteria Editor" are able to access the "Kriterien"-Tab on the sidebar.
+
+> To define criteria an understanding of the data set and the data model is helpful.
+
+
+
 
 #### For Governance
 
-Anonymized data sets may be available and downloadable for every user - therefore everyone may have the right to export and download. As soon as some data sets on your platform have restricted usage and access rights you need to have someone in place with dedicated rights to export data.
-
-WIP - are there access rights specific to projects?
+Anonymized data sets may be available and downloadable for every user - therefore everyone may have the right to export and download. As soon as some data sets on your platform have restricted usage and access rights you need to have someone in place with dedicated rights to export data. The "Manager"-Role is suited for that task.
 
 ## Creating and Managing - Projects
 
@@ -79,10 +100,16 @@ Using the "Aktion"-Three-Dot-Symbol you can access the "Projekt überprüfen"-Vi
 > Projects need to be accepted by an Admin. As an Admin be aware of any measures your plattforms governance has put in place to regulate the process of applying for data.
 
 ## Creating and Managing - News
+It is possible to post News/Infos on the Welcome-Dashboard Page. Besides info text and partners/sponsors there is information about newest projects and the "Info Board" to be found there.
 
-## Creating and Managing - Search Criteria
+User with the role "Content-Admin" are able to access the "Inhalts-Editor"-Tab in the sidebar. Simply click on "Info-Kachel erstellen" and suplly the info you want to post.
+
+![content_editor](/img/content_editor.jpg)
 
 ## Manager-Tools - Pseudonym Resolver
+
+The "Manager"-Role is used to define a person that has access to the sensitive parts of a project (e.g. pseudonyms).
+It allows to export data or access pseudonyms. Therefore the rule is suited for a Trusted Third Party or an ETL Persons that is obligated with handing out data according to Data Usage Applications (e.g. approved by an Use & Access comittee)
 
 WIP - ehr_id to subject_id?
 
