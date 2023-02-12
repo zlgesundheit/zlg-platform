@@ -12,3 +12,4 @@ docs/supervisord.log
 docs/supervisord.pid
 docs/website
 docs/zlg-docs/node_modules
+config.deploy.json
