@@ -66,8 +66,13 @@ Documentation at [docusaurus](https://c100-115.cloud.gwdg.de/docs/)
 - Re-log in the Frontend 
 - **You should have all rights in the portal now** 
 
+## Update Process
+- Ugrade of PG-DB ([see](https://www.postgresql.org/docs/13/upgrading.html))
+- Newer [release of NUM Portal](https://github.com/NUM-Forschungsdatenplattform/num-portal-webapp/releases) (ToDo: fork and build own image)
+
 ## (External) Documentation
 - [openEHR-Specification](https://specifications.openehr.org)
 - [openEHR REST API-Documentation](https://specifications.openehr.org/releases/ITS-REST/Release-1.0.0/ehr.html)
 - [EHRBase Documentation](https://ehrbase.readthedocs.io/en/latest/01_release_notes/index.html)
 - [EHRBase REST API Documentation](https://c100-115.cloud.gwdg.de/ehrbase/swagger-ui.html)
+- [NUM Portal Benutzerhandbuch](https://num-portal-webapp.readthedocs.io/de/latest/)
