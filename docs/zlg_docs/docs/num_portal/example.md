@@ -7,16 +7,17 @@ sidebar_position: 3
 Examples on how the NUM Portal is used. Screenshots of criteria definition, AQL searches, cohort searches, project management, user management.
 
 #### Table of contents
+
 - [Login / Registration](#login--registration)
     - [For Admins](#for-admins)
 - [Accessing data as a researcher](#accessing-data-as-a-researcher)
-    - [Cohort/Search Criteria](#cohortsearch-criteria)
-- [Datenabruf](#datenabruf)
-    - [For Governance](#for-governance)
+- [Data retrieval](#data-retrieval)
+- [Searching Data](#searching-data)
+- [Creating and Managing - Search Criteria](#creating-and-managing---search-criteria)
 - [Creating and Managing - Projects](#creating-and-managing---projects)
     - [For Admins](#for-admins)
+    - [For Governance](#for-governance)
 - [Creating and Managing - News](#creating-and-managing---news)
-- [Creating and Managing - Search Criteria](#creating-and-managing---search-criteria)
 - [Manager-Tools - Pseudonym Resolver](#manager-tools---pseudonym-resolver)
 - [User Roles - Short overview](#user-roles---short-overview)
 
@@ -49,7 +50,7 @@ For the first user / admin user of the platform you need to assign those roles i
 
 To be able to search and access data you need to be assigned to a specific project that includes data / data definitions.
 
-## Datenabruf
+## Data retrieval
 
 Roles that are able to use search or access and export data are `Researcher` and `Manager`.
 
@@ -78,12 +79,7 @@ Users with the role "Criteria Editor" are able to access the "Kriterien"-Tab on 
 
 > To define criteria an understanding of the data set and the data model is helpful.
 
-
-
-
-#### For Governance
-
-Anonymized data sets may be available and downloadable for every user - therefore everyone may have the right to export and download. As soon as some data sets on your platform have restricted usage and access rights you need to have someone in place with dedicated rights to export data. The "Manager"-Role is suited for that task.
+![criteria_overview](/img/criteria_overview.jpg)
 
 ## Creating and Managing - Projects
 
@@ -98,6 +94,10 @@ Using the "Aktion"-Three-Dot-Symbol you can access the "Projekt überprüfen"-Vi
 ![genehhmigen](/img/genehmigen.jpg)
 
 > Projects need to be accepted by an Admin. As an Admin be aware of any measures your plattforms governance has put in place to regulate the process of applying for data.
+
+#### For Governance
+
+Anonymized data sets may be available and downloadable for every user - therefore everyone may have the right to export and download. As soon as some data sets on your platform have restricted usage and access rights you need to have someone in place with dedicated rights to export data. The "Manager"-Role is suited for that task.
 
 ## Creating and Managing - News
 It is possible to post News/Infos on the Welcome-Dashboard Page. Besides info text and partners/sponsors there is information about newest projects and the "Info Board" to be found there.

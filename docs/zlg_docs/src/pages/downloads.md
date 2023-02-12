@@ -12,6 +12,10 @@ On this page you can find all relevant resources belonging to this documentation
 
 [ZL-G Platform Concept - short version]
 
+## Platform Code, Setup and Docker Files
+
+[ZLG Github-Repo]()
+
 ## OpenEHR_FLAT_Loader
 
 [FLAT-Loader - Directory and Scripts]

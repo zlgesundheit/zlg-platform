@@ -56,7 +56,7 @@ services:
 
   num-webapp:
     #image: docker.gitlab.gwdg.de/medinf/kvf/kardio/dzhk/cofoni/num-portal-webapp:1.8.0-dev-808cf071
-    image: numresearchdataplatform/num-portal-webapp:1.9.0
+    image: numresearchdataplatform/num-portal-webapp:1.11.1
     networks:
       - num-net
     volumes:
@@ -67,7 +67,7 @@ services:
      
   num-portal:
     #image: docker.gitlab.gwdg.de/medinf/kvf/kardio/dzhk/cofoni/num-portal:1.8.0-dev-d63c2f21
-    image: numresearchdataplatform/num-portal:1.9.0
+    image: numresearchdataplatform/num-portal:1.11.1
     environment:
       - SPRING_PROFILES_ACTIVE=deploy
       - DATABASE_SERVER=postgres:5432 #postgres:5432
@@ -103,7 +103,7 @@ services:
     restart: always
 
   postgres:
-    image: postgres
+    image: postgres:14-alpine
     environment:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     volumes:
