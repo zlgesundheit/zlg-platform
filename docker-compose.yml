@@ -199,7 +199,7 @@ services:
     volumes: 
       - ./certbot/conf:/etc/letsencrypt
       - ./certbot/www:/var/www/certbot
-    command: certonly --webroot -w /var/www/certbot --force-renewal --email jendrik.richter@med.uni-goettingen.de -d c100-115.cloud.gwdg.de --agree-tos #--test-cert for testing with massively increased rate limits
+    command: certonly --webroot -w /var/www/certbot --force-renewal --email jendrik.richter@med.uni-goettingen.de -d c100-099.cloud.gwdg.de --agree-tos #--test-cert for testing with massively increased rate limits
 
 volumes:
   nginx_html:
