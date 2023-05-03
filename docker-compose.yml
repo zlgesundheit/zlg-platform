@@ -1,19 +1,6 @@
 version: '3'
 
 services:
-  #mdbook:
-  #  image: hillliu/mdbook
-  #  command: ["serve", "-d","/zlg", "-p", "5000", "-n", "0.0.0.0"]
-  #  environment:
-  #    - MDBOOK_BOOK__SITEURL="zlg"
-  #  networks:
-  #    - docs-net
-  #  volumes:
-  #    - "${SRC:-./zlg_docs/mdbook-demo}:/mdbook" 
-  #    - "${DEST:-./zlg_docs/build/book}:/mdbook/book" 
-  #  expose:
-  #    - "5000"
-  #    - "5001"
 
   docs:
     image: awesometic/docusaurus:latest
