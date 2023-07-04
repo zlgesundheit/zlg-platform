@@ -1,19 +1,6 @@
 version: '3'
 
 services:
-  #mdbook:
-  #  image: hillliu/mdbook
-  #  command: ["serve", "-d","/zlg", "-p", "5000", "-n", "0.0.0.0"]
-  #  environment:
-  #    - MDBOOK_BOOK__SITEURL="zlg"
-  #  networks:
-  #    - docs-net
-  #  volumes:
-  #    - "${SRC:-./zlg_docs/mdbook-demo}:/mdbook" 
-  #    - "${DEST:-./zlg_docs/build/book}:/mdbook/book" 
-  #  expose:
-  #    - "5000"
-  #    - "5001"
 
   docs:
     image: awesometic/docusaurus:latest
@@ -56,7 +43,7 @@ services:
 
   num-webapp:
     #image: docker.gitlab.gwdg.de/medinf/kvf/kardio/dzhk/cofoni/num-portal-webapp:1.8.0-dev-808cf071
-    image: numresearchdataplatform/num-portal-webapp:1.11.1
+    image: numresearchdataplatform/num-portal-webapp:1.12.0 #1.11.1
     networks:
       - num-net
     volumes:
@@ -67,7 +54,7 @@ services:
      
   num-portal:
     #image: docker.gitlab.gwdg.de/medinf/kvf/kardio/dzhk/cofoni/num-portal:1.8.0-dev-d63c2f21
-    image: numresearchdataplatform/num-portal:1.11.1
+    image: numresearchdataplatform/num-portal:1.12.0 #1.11.1
     environment:
       - SPRING_PROFILES_ACTIVE=deploy
       - DATABASE_SERVER=postgres:5432 #postgres:5432
@@ -93,6 +80,7 @@ services:
       - SWAGGER_OAUTH2_CLIENT-NAME=num-portal-webapp
       - PRIVACY_MIN_HITS=5
       - PSEUDONYMITY_SECRET=${PSEUDONYMITY_SECRET}
+      - FTTP_USE_BASIC_AUTH=true
     expose:
       - "8090"
     networks:
@@ -114,8 +102,8 @@ services:
       - num-net
     expose:
       - "5432"
-    #ports:     #useful for setup
-    #  - 5432:5432
+    ports:     #useful for setup
+      - 5432:5432
     restart: always
 
   portal-ehrbase:
@@ -161,20 +149,8 @@ services:
         - num-net
     expose:
       - "8080"
-    ports:  #Open Port to access DB from outside - only for setup
-      - 5050:8080
-
-  # portal-pgadmin:
-  #   container_name: pgadmin4
-  #   image: dpage/pgadmin4
-  #   restart: always
-  #   environment:
-  #     PGADMIN_DEFAULT_EMAIL: admin@admin.de
-  #     PGADMIN_DEFAULT_PASSWORD: admin
-  #   networks:
-  #       - ehrbase-net
-  #   ports:
-  #       - 5050:80
+    #ports:  #Open Port to access DB from outside - only for setup
+    #  - 5050:8080
 
   nginx:
     image: nginx
@@ -199,7 +175,7 @@ services:
     volumes: 
       - ./certbot/conf:/etc/letsencrypt
       - ./certbot/www:/var/www/certbot
-    command: certonly --webroot -w /var/www/certbot --force-renewal --email jendrik.richter@med.uni-goettingen.de -d c100-099.cloud.gwdg.de --agree-tos #--test-cert for testing with massively increased rate limits
+    command: certonly --webroot -w /var/www/certbot --force-renewal --email ${EMAIL} -d ${DOMAIN} --agree-tos #--test-cert for testing with massively increased rate limits
 
 volumes:
   nginx_html:
