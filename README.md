@@ -69,6 +69,7 @@ Documentation at [docusaurus](https://c100-115.cloud.gwdg.de/docs/)
 ## Update Process
 - Ugrade of PG-DB ([see](https://www.postgresql.org/docs/13/upgrading.html))
 - Newer [release of NUM Portal](https://github.com/NUM-Forschungsdatenplattform/num-portal-webapp/releases) (ToDo: fork and build own image)
+- Updating EHRBase ([see Developer Hints for updating a native EHRBase instance](https://github.com/ehrbase/ehrbase/blob/develop/UPDATING.md#ehrbase-0240)) (ToDo: Test using docker and describe process)
 
 ## (External) Documentation
 - [openEHR-Specification](https://specifications.openehr.org)
