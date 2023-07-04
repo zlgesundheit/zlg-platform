@@ -71,9 +71,7 @@ Documentation at [docusaurus](https://c100-115.cloud.gwdg.de/docs/)
 - Newer [release of NUM Portal](https://github.com/NUM-Forschungsdatenplattform/num-portal-webapp/releases) (ToDo: fork and build own image)
 - Updating EHRBase ([see Developer Hints for updating a native EHRBase instance](https://github.com/ehrbase/ehrbase/blob/develop/UPDATING.md#ehrbase-0240)) (ToDo: Test using docker and describe process)
 - Automate Cert-Renewal:
-  Configure a cronjob to run
-    - docker-compose -f >>PATHtoYML<< up certbot
-    - docker-compose -f >>PATHtoYML<< exec nginx nginx -s reload
+  Configure a cronjob to run [cert-renewal-script](cron_renew_cert.sh)
 
 ## (External) Documentation
 - [openEHR-Specification](https://specifications.openehr.org)
