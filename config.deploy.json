@@ -3,10 +3,10 @@
         "name": "deploy"
     },
     "api": {
-        "baseUrl": "https://c100-099.cloud.gwdg.de/backend"
+        "baseUrl": "https://c100-115.cloud.gwdg.de/backend"
     },
     "auth": {
-        "baseUrl": "https://c100-099.cloud.gwdg.de",  
+        "baseUrl": "https://c100-115.cloud.gwdg.de",  
         "realm": "crr",
         "clientId": "num-portal-webapp"
     },

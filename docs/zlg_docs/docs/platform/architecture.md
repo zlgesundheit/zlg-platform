@@ -60,10 +60,7 @@ Data Anaylsis can be performed on a data export that has been queried from the o
 
 ## Setup
 The platform consists of multiple tools. You may use only individual tools or use all of them depending on your needs.
-
-- [EHRBase](https://gitlab.gwdg.de/medinf/ivf/zukunftslabor-gesundheit/zlg-platform/-/tree/master/ehrbase_docker)
-- ["NUM"-Portal](https://gitlab.gwdg.de/medinf/ivf/zukunftslabor-gesundheit/zlg-platform/-/tree/master/portal_docker)
-- [ZLG Documentation](https://gitlab.gwdg.de/medinf/ivf/zukunftslabor-gesundheit/zlg-platform/-/tree/master/zlg_docs)
+For more information see the Setup - Overview or the tools section of the documentation.
 
 ## Security
 The security of data repository and associated tools depends on the (network) environment, accessibility and governance. For more info see the [page about security](./platform_security.md).

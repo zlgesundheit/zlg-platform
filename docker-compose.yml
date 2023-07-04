@@ -91,7 +91,7 @@ services:
     restart: always
 
   postgres:
-    image: postgres:14-alpine
+    image: postgres:15-alpine
     environment:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     volumes:
