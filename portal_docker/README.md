@@ -26,10 +26,14 @@ docker-compose -f compose.yml up -d
 === Initialize DB
 Für die Ehrbase muss vorher ein Benutzer und weiteres erstellt werden, die nachfolgenden Befehle laden die SQL Datei in den Container und lad diese in die Postgres Datenbank
 
-`docker cp ./sql/01-ehrbase-cloud-db-setup.sql portal_docker_postgres_1:/docker-entrypoint-initdb.d/dump.sql`  
-`docker exec -u postgres portal_docker_postgres_1 psql postgres postgres -f docker-entrypoint-initdb.d/dump.sql`
+`docker cp ./sql/01-ehrbase-cloud-db-setup.sql zlg-platform-postgres-1:/docker-entrypoint-initdb.d/dump.sql`  
+`docker exec -u postgres zlg-platform-postgres-1 psql postgres postgres -f docker-entrypoint-initdb.d/dump.sql`
 
 > Der Service "portal-ehrbase" meldet sich mit dem im SQL-Init-Skript festgelegten Passwort bei der DB an. Diese müssen daher übereinstimmen.
+
+Mit Version 24 kam ein restricted-user dazu:
+docker cp ./portal_docker/sql/add_restricted_user.sql zlg-platform-postgres-1:/add_restricted_user.sql
+docker exec -u postgres zlg-platform-postgres-1 psql postgres postgres -f add_restricted_user.sql
 
 === Setup KeyCloak and get CLientSecret
 - In der Keycloak [Adminoberfläche](https://141.5.100.99:8443/auth/) bzw. [hier](https://141.5.100.99:8443/auth/admin/master/console/) anmelden
