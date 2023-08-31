@@ -24,11 +24,11 @@ Documentation at [docusaurus](https://c100-115.cloud.gwdg.de/docs/)
 ## Startup
 
 ### Alter domain settings in nginx-conf and Create SSL-Cert (once at first start)
-- `cp ./nginx/before-cert-creation ./nginx/nginx.conf`
-- Change Domain in nginx.conf to your Domain.
+- `cp ./nginx/before-cert-creation ./nginx/nginx.conf`  
+Change Domain in nginx.conf to your Domain.
 - `docker-compose up -d`
-- `cp ./nginx/after-cert-creation ./nginx/nginx.conf`
-- Change Domain in **nginx.conf** to your Domain.
+- `cp ./nginx/after-cert-creation ./nginx/nginx.conf`  
+Change Domain in **nginx.conf** to your Domain.
 - `docker-compose up -d --force-recreate nginx`
 
 ### Alter Domain-Settings
@@ -39,18 +39,18 @@ Documentation at [docusaurus](https://c100-115.cloud.gwdg.de/docs/)
 - Change Domain-Occurences and other relevant linkings (e.g. Gitlab Repo) to match your own Setting.
     - Edit **./docs/zlg-docs/docusaurus.config.js**
 
-## Start all containers
-- Define passwords in .env file 
+## Start all containers  
+Define passwords in .env file  
 - `docker-compose up -d`
 
 ### Init DB for EHRBase
-- Set password in "./portal_docker/sql/01-ehrbase-cloud-db-setup.sql" according to "EB_DB_PASS" in .env file.
+Set password in "./portal_docker/sql/01-ehrbase-cloud-db-setup.sql" according to "EB_DB_PASS" in .env file.
 - `docker cp ./portal_docker/sql/01-ehrbase-cloud-db-setup.sql zlg-platform_postgres_1:/docker-entrypoint-initdb.d/dump.sql`
 - `docker exec -u postgres zlg-platform_postgres_1 psql postgres postgres -f docker-entrypoint-initdb.d/dump.sql`
 
 Mit Version 24 kam ein restricted-user dazu:   
-`docker cp ./portal_docker/sql/add_restricted_user.sql zlg-platform-postgres-1:/add_restricted_user.sql`  
-`docker exec -u postgres zlg-platform-postgres-1 psql postgres postgres -f add_restricted_user.sql`  
+- `docker cp ./portal_docker/sql/add_restricted_user.sql zlg-platform-postgres-1:/add_restricted_user.sql`  
+- `docker exec -u postgres zlg-platform-postgres-1 psql postgres postgres -f add_restricted_user.sql`  
 
 Dies wird später in einem Setup-Skript zusammengefasst.
 
