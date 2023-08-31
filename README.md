@@ -48,6 +48,12 @@ Documentation at [docusaurus](https://c100-115.cloud.gwdg.de/docs/)
 - `docker cp ./portal_docker/sql/01-ehrbase-cloud-db-setup.sql zlg-platform_postgres_1:/docker-entrypoint-initdb.d/dump.sql`
 - `docker exec -u postgres zlg-platform_postgres_1 psql postgres postgres -f docker-entrypoint-initdb.d/dump.sql`
 
+Mit Version 24 kam ein restricted-user dazu:   
+`docker cp ./portal_docker/sql/add_restricted_user.sql zlg-platform-postgres-1:/add_restricted_user.sql`  
+`docker exec -u postgres zlg-platform-postgres-1 psql postgres postgres -f add_restricted_user.sql`  
+
+Dies wird später in einem Setup-Skript zusammengefasst.
+
 ### Setup backend-auth
 - Visit Keycloak Endpoint at https://DOMAIN/auth
 - Generate new secret via **Clients -> num-Portal -> Credentials -> Regenerate Secret**
