@@ -44,20 +44,16 @@ Define passwords in .env file
 - `docker-compose up -d`
 
 ### Init DB for EHRBase
-Set password in "./portal_docker/sql/01-ehrbase-cloud-db-setup.sql" according to "EB_DB_PASS" in .env file.
-- `docker cp ./portal_docker/sql/01-ehrbase-cloud-db-setup.sql FOLDER_NAME_postgres_1:/docker-entrypoint-initdb.d/dump.sql`
-- `docker exec -u postgres FOLDER_NAME_postgres_1 psql postgres postgres -f docker-entrypoint-initdb.d/dump.sql`
+Set password in "./portal_docker/sql/createdb.sql" according to "EB_DB_PASS" in .env file.
+- `docker cp ./portal_docker/sql/createdb.sql FOLDER_NAME_postgres_1:/docker-entrypoint-initdb.d/createdb.sql`
+- `docker exec -u postgres FOLDER_NAME_postgres_1 psql postgres postgres -f docker-entrypoint-initdb.d/createdb.sql`
 
-Mit Version 24 kam ein restricted-user dazu:   
-- `docker cp ./portal_docker/sql/add_restricted_user.sql FOLDER_NAME-postgres-1:/add_restricted_user.sql`  
-- `docker exec -u postgres FOLDER_NAME-postgres-1 psql postgres postgres -f add_restricted_user.sql`  
-
-Dies wird später in einem Setup-Skript zusammengefasst (see [EHRBase SQL Init Skript](https://github.com/ehrbase/ehrbase/blob/develop/base/db-setup/createdb.sql)).
+ (See [EHRBase SQL Init Skript](https://github.com/ehrbase/ehrbase/blob/develop/base/db-setup/createdb.sql)).
 
 ### Setup backend-auth
 - Visit Keycloak Endpoint at https://DOMAIN/auth
 - Generate new secret via **Clients -> num-Portal -> Credentials -> Regenerate Secret**
-- Copy Secret in Keycloak and set ${KEYCLOAK_CLIENT_SECRET} in docker-compose.yml
+- Copy Secret in Keycloak and set ${KEYCLOAK_CLIENT_SECRET} in .env-File or docker-compose.yml
 - Recreate num-portal container: `docker-compose up -d --force-recreate num-portal`
 
 ### Setup First User
