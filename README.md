@@ -64,7 +64,8 @@ Set password in "./portal_docker/sql/createdb.sql" according to "EB_DB_PASS" in 
     - Go to Users -> View all users -> Edit -> Email Verified = ON -> Save
 - Re-log in the Frontend
 - Enter the database under schema "num" and in table "user_details" set the user to approved (identified by same id like in keycloak)
-    - e.g. expose port of adminer/pg_admin and login to the DB
+    - e.g. expose port of adminer/pg_admin and login to the DB  
+    - e.g. Login to server=postgres, user=postgres, pw=?, database=ehrbase
 - Re-log in the Frontend 
 - **You should have all rights in the portal now** 
 
