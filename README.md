@@ -45,12 +45,12 @@ Define passwords in .env file
 
 ### Init DB for EHRBase
 Set password in "./portal_docker/sql/01-ehrbase-cloud-db-setup.sql" according to "EB_DB_PASS" in .env file.
-- `docker cp ./portal_docker/sql/01-ehrbase-cloud-db-setup.sql zlg-platform_postgres_1:/docker-entrypoint-initdb.d/dump.sql`
-- `docker exec -u postgres zlg-platform_postgres_1 psql postgres postgres -f docker-entrypoint-initdb.d/dump.sql`
+- `docker cp ./portal_docker/sql/01-ehrbase-cloud-db-setup.sql FOLDER_NAME_postgres_1:/docker-entrypoint-initdb.d/dump.sql`
+- `docker exec -u postgres FOLDER_NAME_postgres_1 psql postgres postgres -f docker-entrypoint-initdb.d/dump.sql`
 
 Mit Version 24 kam ein restricted-user dazu:   
-- `docker cp ./portal_docker/sql/add_restricted_user.sql zlg-platform-postgres-1:/add_restricted_user.sql`  
-- `docker exec -u postgres zlg-platform-postgres-1 psql postgres postgres -f add_restricted_user.sql`  
+- `docker cp ./portal_docker/sql/add_restricted_user.sql FOLDER_NAME-postgres-1:/add_restricted_user.sql`  
+- `docker exec -u postgres FOLDER_NAME-postgres-1 psql postgres postgres -f add_restricted_user.sql`  
 
 Dies wird später in einem Setup-Skript zusammengefasst.
 
