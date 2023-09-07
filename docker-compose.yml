@@ -93,7 +93,12 @@ services:
   postgres:
     image: postgres:15-alpine
     environment:
+      - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - EHRBASE_USER_ADMIN=${EB_DB_USER} #new
+      - EHRBASE_PASSWORD_ADMIN=${EB_DB_PASS} #new
+      - EHRBASE_USER=${EB_DB_RESTRICTED_USER} #new due to 0.24 Update
+      - EHRBASE_PASSWORD=${EB_DB_RESTRICTED_PASS} #new due to 0.24 Update
     volumes:
       #- ./.pgdata:/var/lib/postgresql/data
       - postgres_data:/var/lib/postgresql/data
@@ -115,8 +120,10 @@ services:
       - num-net
     environment:
       - DB_URL=jdbc:postgresql://postgres:5432/ehrbase
-      - DB_USER=${EB_DB_USER}
-      - DB_PASS=${EB_DB_PASS}
+      - DB_USER_ADMIN=${EB_DB_USER}
+      - DB_PASS_ADMIN=${EB_DB_PASS}
+      - DB_USER=${EB_DB_RESTRICTED_USER} #new due to 0.24 Update
+      - DB_PASS=${EB_DB_RESTRICTED_PASS} #new due to 0.24 Update
       - SERVER_NODENAME=local.ehrbase.org
       - SECURITY_AUTHTYPE=BASIC
       - SECURITY_AUTHUSER=${SECURITY_AUTHUSER}
