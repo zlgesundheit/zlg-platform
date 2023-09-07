@@ -52,7 +52,7 @@ Mit Version 24 kam ein restricted-user dazu:
 - `docker cp ./portal_docker/sql/add_restricted_user.sql FOLDER_NAME-postgres-1:/add_restricted_user.sql`  
 - `docker exec -u postgres FOLDER_NAME-postgres-1 psql postgres postgres -f add_restricted_user.sql`  
 
-Dies wird später in einem Setup-Skript zusammengefasst (see [EHRBase Update Hints](https://github.com/ehrbase/ehrbase/blob/develop/base/db-setup/createdb.sql)).
+Dies wird später in einem Setup-Skript zusammengefasst (see [EHRBase SQL Init Skript](https://github.com/ehrbase/ehrbase/blob/develop/base/db-setup/createdb.sql)).
 
 ### Setup backend-auth
 - Visit Keycloak Endpoint at https://DOMAIN/auth
