@@ -19,7 +19,7 @@ services:
       - "80"
     restart: always
 
-  portal-keycloak: 
+  portal-keycloak:
     image: jboss/keycloak:latest
     environment:
       - KEYCLOAK_USER=${KEYCLOAK_USER}
@@ -29,7 +29,7 @@ services:
       - DB_USER=${POSTGRES_USER}
       - DB_PASSWORD=${POSTGRES_PASSWORD}
       - KEYCLOAK_IMPORT=/tmp/keycloak-dump.json
-      - JAVA_OPTS=-server -Xms1024m -Xmx1024m 
+      - JAVA_OPTS=-server -Xms1024m -Xmx1024m
       - PROXY_ADDRESS_FORWARDING=true  #important for reverse proxy 
     volumes:
       - ./portal_docker/keycloak/keycloak-dump.json:/tmp/keycloak-dump.json
@@ -51,7 +51,7 @@ services:
     expose:
       - "80"
     restart: always
-     
+
   num-portal:
     #image: docker.gitlab.gwdg.de/medinf/kvf/kardio/dzhk/cofoni/num-portal:1.8.0-dev-d63c2f21
     image: numresearchdataplatform/num-portal:1.12.0 #1.11.1
@@ -91,18 +91,22 @@ services:
     restart: always
 
   postgres:
-    image: postgres:15-alpine
+    image: ehrbase/ehrbase-postgres:13.4.v2
+    #postgres:15-alpine
     environment:
+      - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - EHRBASE_USER_ADMIN=ehrbaseadmin #${EB_DB_USER} #new
+      - EHRBASE_PASSWORD_ADMIN=ehrbaseadmin #${EB_DB_PASS} #new
+      - EHRBASE_USER=${EB_DB_RESTRICTED_USER} #new due to 0.24 Update
+      - EHRBASE_PASSWORD=${EB_DB_RESTRICTED_PASS} #new due to 0.24 Update
     volumes:
       #- ./.pgdata:/var/lib/postgresql/data
       - postgres_data:/var/lib/postgresql/data
     networks:
       - ehrbase-net
       - num-net
-    expose:
-      - "5432"
-    ports:     #useful for setup
+    ports:
       - 5432:5432
     restart: always
 
@@ -115,9 +119,13 @@ services:
       - num-net
     environment:
       - DB_URL=jdbc:postgresql://postgres:5432/ehrbase
-      - DB_USER=${EB_DB_USER}
-      - DB_PASS=${EB_DB_PASS}
-      - SERVER_NODENAME=local.ehrbase.org
+      - DB_USER_ADMIN=ehrbaseadmin
+        #${EB_DB_USER}
+      - DB_PASS_ADMIN=ehrbaseadmin
+        #${EB_DB_PASS}
+      - DB_USER=${EB_DB_RESTRICTED_USER} #new due to 0.24 Update
+      - DB_PASS=${EB_DB_RESTRICTED_PASS} #new due to 0.24 Update 
+      - SERVER_NODENAME=zlg.ehrbase.org
       - SECURITY_AUTHTYPE=BASIC
       - SECURITY_AUTHUSER=${SECURITY_AUTHUSER}
       - SECURITY_AUTHPASSWORD=${SECURITY_AUTHPASSWORD}
@@ -174,10 +182,10 @@ services:
     container_name: certbot
     depends_on:
       - nginx
-    volumes: 
+    volumes:
       - ./certbot/conf:/etc/letsencrypt
       - ./certbot/www:/var/www/certbot
-    command: certonly --webroot -w /var/www/certbot --email ${EMAIL} -d ${DOMAIN} --agree-tos #--test-cert for testing with massively increased rate limits --force-renewal
+    command: certonly --webroot -w /var/www/certbot --email ${EMAIL} -d ${DOMAIN} --agree-tos --non-interactive #--test-cert #for testing with massively increased rate limits --force-renewal
 
 volumes:
   nginx_html:

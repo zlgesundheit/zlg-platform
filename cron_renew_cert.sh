@@ -5,4 +5,4 @@ cd /home/richter122/zlg-platform
 
 # Start the containers using Docker Compose
 docker-compose up certbot
-docker-compose nginx nginx -s reload
+docker-compose exec nginx nginx -s reload
