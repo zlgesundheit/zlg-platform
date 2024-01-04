@@ -43,7 +43,7 @@ services:
 
   num-webapp:
     #image: docker.gitlab.gwdg.de/medinf/kvf/kardio/dzhk/cofoni/num-portal-webapp:1.8.0-dev-808cf071
-    image: numresearchdataplatform/num-portal-webapp:1.12.0 #1.11.1
+    image: numresearchdataplatform/num-portal-webapp:1.17.0 #1.11.1
     networks:
       - num-net
     volumes:
@@ -54,7 +54,7 @@ services:
      
   num-portal:
     #image: docker.gitlab.gwdg.de/medinf/kvf/kardio/dzhk/cofoni/num-portal:1.8.0-dev-d63c2f21
-    image: numresearchdataplatform/num-portal:1.12.0 #1.11.1
+    image: numresearchdataplatform/num-portal:1.17.0 #1.11.1
     environment:
       - SPRING_PROFILES_ACTIVE=deploy
       - DATABASE_SERVER=postgres:5432 #postgres:5432
@@ -78,9 +78,17 @@ services:
       - EMAIL_HOST=localhost
       - MANAGEMENT_PORT=8091
       - SWAGGER_OAUTH2_CLIENT-NAME=num-portal-webapp
-      - PRIVACY_MIN_HITS=5
+      - PRIVACY_MIN_HITS=5   # IMPORTANT Anzahl minimaler Ergebnisse fuer Suche die noch ausgegeben werden. Datenschutz.
       - PSEUDONYMITY_SECRET=${PSEUDONYMITY_SECRET}
-      - FTTP_USE_BASIC_AUTH=true
+      - ENABLE_CONNECTION_TO_ATTACHMENT_DATABASE=true #attachment-db that needs to be initialized using init-sql-file
+      - ATTACHMENT_DATABASE_SERVER=postgres:5432
+      - ATTACHMENT_DATABASE_NAME=num-attachment
+      - ATTACHMENT_DATABASE_USERNAME=num-attachment
+      - ATTACHMENT_DATABASE_PASSWORD=num-attachment
+      - CLAMAV_PORT=3310 #antivirus for file attachements
+      - FTTP_USE_BASIC_AUTH=true #possible psn service with greifswald
+      - STATUS_URL=https://www.statuscake.com #http://num-portal:8090/health  #http://localhost:8099/health-url
+      - FAKE_3RD_PARTY_PSEUDONYM_ENABLED=false
     expose:
       - "8090"
     networks:
