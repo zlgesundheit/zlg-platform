@@ -1,4 +1,0 @@
-ehrbase_docker/.pgdata/
-certbot/conf/
-portal_docker/.pgdata/
-.env

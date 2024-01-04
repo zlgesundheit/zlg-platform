@@ -24,11 +24,11 @@ Documentation at [docusaurus](https://c100-115.cloud.gwdg.de/docs/)
 ## Startup
 
 ### Alter domain settings in nginx-conf and Create SSL-Cert (once at first start)
-- `cp ./nginx/before-cert-creation ./nginx/nginx.conf`
-- Change Domain in nginx.conf to your Domain.
+- `cp ./nginx/before-cert-creation ./nginx/nginx.conf`  
+Change Domain in nginx.conf to your Domain.
 - `docker-compose up -d`
-- `cp ./nginx/after-cert-creation ./nginx/nginx.conf`
-- Change Domain in **nginx.conf** to your Domain.
+- `cp ./nginx/after-cert-creation ./nginx/nginx.conf`  
+Change Domain in **nginx.conf** to your Domain.
 - `docker-compose up -d --force-recreate nginx`
 
 ### Alter Domain-Settings
@@ -39,19 +39,21 @@ Documentation at [docusaurus](https://c100-115.cloud.gwdg.de/docs/)
 - Change Domain-Occurences and other relevant linkings (e.g. Gitlab Repo) to match your own Setting.
     - Edit **./docs/zlg-docs/docusaurus.config.js**
 
-## Start all containers
-- Define passwords in .env file 
+## Start all containers  
+Define passwords in .env file  
 - `docker-compose up -d`
 
 ### Init DB for EHRBase
-- Set password in "./portal_docker/sql/01-ehrbase-cloud-db-setup.sql" according to "EB_DB_PASS" in .env file.
-- `docker cp ./portal_docker/sql/01-ehrbase-cloud-db-setup.sql zlg-platform_postgres_1:/docker-entrypoint-initdb.d/dump.sql`
-- `docker exec -u postgres zlg-platform_postgres_1 psql postgres postgres -f docker-entrypoint-initdb.d/dump.sql`
+Set password in "./portal_docker/sql/createdb.sql" according to "EB_DB_PASS" in .env file.
+- `docker cp ./portal_docker/sql/createdb.sql FOLDER_NAME_postgres_1:/docker-entrypoint-initdb.d/createdb.sql`
+- `docker exec -u postgres FOLDER_NAME_postgres_1 psql postgres postgres -f docker-entrypoint-initdb.d/createdb.sql`
+
+ (See [EHRBase SQL Init Skript](https://github.com/ehrbase/ehrbase/blob/develop/base/db-setup/createdb.sql)).
 
 ### Setup backend-auth
 - Visit Keycloak Endpoint at https://DOMAIN/auth
 - Generate new secret via **Clients -> num-Portal -> Credentials -> Regenerate Secret**
-- Copy Secret in Keycloak and set ${KEYCLOAK_CLIENT_SECRET} in docker-compose.yml
+- Copy Secret in Keycloak and set ${KEYCLOAK_CLIENT_SECRET} in .env-File or docker-compose.yml
 - Recreate num-portal container: `docker-compose up -d --force-recreate num-portal`
 
 ### Setup First User
@@ -62,7 +64,8 @@ Documentation at [docusaurus](https://c100-115.cloud.gwdg.de/docs/)
     - Go to Users -> View all users -> Edit -> Email Verified = ON -> Save
 - Re-log in the Frontend
 - Enter the database under schema "num" and in table "user_details" set the user to approved (identified by same id like in keycloak)
-    - e.g. expose port of adminer/pg_admin and login to the DB
+    - e.g. expose port of adminer/pg_admin and login to the DB  
+    - e.g. Login to server=postgres, user=postgres, pw=?, database=ehrbase
 - Re-log in the Frontend 
 - **You should have all rights in the portal now** 
 
@@ -71,9 +74,7 @@ Documentation at [docusaurus](https://c100-115.cloud.gwdg.de/docs/)
 - Newer [release of NUM Portal](https://github.com/NUM-Forschungsdatenplattform/num-portal-webapp/releases) (ToDo: fork and build own image)
 - Updating EHRBase ([see Developer Hints for updating a native EHRBase instance](https://github.com/ehrbase/ehrbase/blob/develop/UPDATING.md#ehrbase-0240)) (ToDo: Test using docker and describe process)
 - Automate Cert-Renewal:
-  Configure a cronjob to run
-    - docker-compose -f >>PATHtoYML<< up certbot
-    - docker-compose -f >>PATHtoYML<< exec nginx nginx -s reload
+  Configure a cronjob to run [cert-renewal-script](cron_renew_cert.sh)
 
 ## (External) Documentation
 - [openEHR-Specification](https://specifications.openehr.org)
