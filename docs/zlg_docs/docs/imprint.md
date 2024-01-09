@@ -1,6 +1,6 @@
 ---
 title: Imprint
-sidebar_position: 22
+sidebar_position: 23
 ---
 
 # Imprint
@@ -14,8 +14,8 @@ Head of Department
 Robert-Koch-Str. 40  
 37075 Göttingen, Germany  
 
-**E-Mail**: mi@med.uni-goettingen.de  
-**Phone**: +49 551 39-3431
+**E-Mail**: mi.kontakt@med.uni-goettingen.de  
+**Phone**: +49 551 39-61533
 
 
 ---
