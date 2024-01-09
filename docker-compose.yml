@@ -4,6 +4,7 @@ services:
 
   docs:
     image: awesometic/docusaurus:latest
+    container_name: docs
     command: ["serve", "--host", "0.0.0.0"]
     environment:
       - AUTO_UPDATE=false
@@ -21,6 +22,7 @@ services:
 
   portal-keycloak: 
     image: jboss/keycloak:latest
+    container_name: keycloak
     environment:
       - KEYCLOAK_USER=${KEYCLOAK_USER}
       - KEYCLOAK_PASSWORD=${KEYCLOAK_PASSWORD}
@@ -44,6 +46,7 @@ services:
   num-webapp:
     #image: docker.gitlab.gwdg.de/medinf/kvf/kardio/dzhk/cofoni/num-portal-webapp:1.8.0-dev-808cf071
     image: numresearchdataplatform/num-portal-webapp:1.17.0 #1.11.1
+    container_name: webapp
     networks:
       - num-net
     volumes:
@@ -55,6 +58,7 @@ services:
   num-portal:
     #image: docker.gitlab.gwdg.de/medinf/kvf/kardio/dzhk/cofoni/num-portal:1.8.0-dev-d63c2f21
     image: numresearchdataplatform/num-portal:1.17.0 #1.11.1
+    container_name: portal
     environment:
       - SPRING_PROFILES_ACTIVE=deploy
       - DATABASE_SERVER=postgres:5432 #postgres:5432
@@ -100,6 +104,7 @@ services:
 
   postgres:
     image: postgres:15-alpine
+    container_name: postgres
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
@@ -121,6 +126,7 @@ services:
 
   portal-ehrbase:
     image: ehrbase/ehrbase:latest #0.18.3 #latest
+    container_name: ehrbase
     expose:
       - "8080"
     networks:
@@ -156,8 +162,8 @@ services:
     restart: on-failure
 
   portal-adminer:
-    container_name: adminer
     image: adminer
+    container_name: adminer
     restart: always
     networks:
         - ehrbase-net
