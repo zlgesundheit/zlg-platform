@@ -45,7 +45,8 @@ services:
 
   num-webapp:
     #image: docker.gitlab.gwdg.de/medinf/kvf/kardio/dzhk/cofoni/num-portal-webapp:1.8.0-dev-808cf071
-    image: numresearchdataplatform/num-portal-webapp:1.17.0 #1.11.1
+    #image: numresearchdataplatform/num-portal-webapp:1.17.0 #1.11.1
+    image: ghcr.io/zlgesundheit/zlg-num-portal-webapp:develop
     container_name: webapp
     networks:
       - num-net
