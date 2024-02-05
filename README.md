@@ -105,6 +105,10 @@ See Dockerhub for new versions or Github-pages for changes and changelogs.
 ### Automation of updates
 Automate Cert-Renewal:
 - Configure a cronjob to run [cert-renewal-script](cron_renew_cert.sh)
+  - `crontab -e` e.g. 0 3 1 * * /home/username/zlg-platform/cron_renew_cert.sh
+  - make sure the file is executable 
+    - check via `ls -l <<path>>/cron_renew_cert.sh`
+    - change via `chmod +x <<path>>/cron_renew_cert.sh`
 
 You may consider automating other update processes as well.
 
@@ -120,6 +124,6 @@ Automation of the setup-process is a future-TODO.
 ## License
 This documentation is licensed under Creative Commons license [CC-BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) unless otherwise stated.
 
-![CC-BY-SA 4.0-Logo](image.png)
+![CC-BY-SA 4.0-Logo](cc_by_logo.png)
 
 The tools utlized by the zlg-platform are available at public sources under their respective licenses.

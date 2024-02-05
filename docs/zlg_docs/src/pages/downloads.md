@@ -14,7 +14,7 @@ On this page you can find all relevant resources belonging to this documentation
 
 ## Platform Code, Setup and Docker Files
 
-[ZLG Github-Repo]()
+[ZLG Github-Repo](https://github.com/zlgesundheit)
 
 ## OpenEHR_FLAT_Loader
 

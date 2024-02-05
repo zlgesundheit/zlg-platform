@@ -1,3 +1,4 @@
+ehrbase_docker/BACKUP-pgdata/
 ehrbase_docker/.pgdata/
 certbot/conf/
 certbot
